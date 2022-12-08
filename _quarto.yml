@@ -8,12 +8,17 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: about.qmd
+        text: About
+      - href: posts.qmd
+        text: Blog
+      
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: 
+      - mystyles.scss
+    #css: styles.css
     toc: true
 
 editor: visual

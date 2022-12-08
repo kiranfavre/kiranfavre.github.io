@@ -1,0 +1,16 @@
+[
+  {
+    "listing": "/blog_post.html",
+    "items": [
+      "/posts/2022-10-24_Firstblog/index.html",
+      "/posts/2022-12-08_EDS222_final/index.html"
+    ]
+  },
+  {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/2022-10-24_Firstblog/index.html",
+      "/posts/2022-12-08_EDS222_final/index.html"
+    ]
+  }
+]

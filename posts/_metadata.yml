@@ -1,0 +1,9 @@
+#options specified here apply to all qmds in my posts folder
+
+#saves time on rendering- 
+# prevents posts from rendering unless told to do so
+freeze: true
+
+#enable banner style title blocks- header
+title-block-banner: true
+

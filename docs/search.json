@@ -1,16 +1,44 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "blog_post.html",
+    "href": "blog_post.html",
+    "title": "My Blog",
     "section": "",
-    "text": "1 + 1\n\n[1] 2"
+    "text": "MEDS\n\n\ntest\n\n\nR\n\n\n\nThis is a description\n\n\n\nKiran Favre\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\nGeospatial\n\n\nCoastlines\n\n\n\nUPDATE THIS!!!!\n\n\n\nKiran Favre\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "kiranfavre.github.io",
+    "title": "Kiran Favre",
     "section": "",
-    "text": "This is my new website!"
+    "text": "I am currently pursuing my Master’s of Environmental Data Science at the Bren School for Environmental Science & Management at University of California, Santa Barbara. I recently earned a B.S. in Environmental Sciences from University of California, Santa Cruz."
+  },
+  {
+    "objectID": "posts/2022-10-24_Firstblog/index.html",
+    "href": "posts/2022-10-24_Firstblog/index.html",
+    "title": "First Blog Title",
+    "section": "",
+    "text": "Here’s some more text\nHere I’m going to cite my blog post from last year []"
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/2022-12-08_EDS222_final/index.html",
+    "href": "posts/2022-12-08_EDS222_final/index.html",
+    "title": "Analysis of California Coastal Erosion",
+    "section": "",
+    "text": "BibTeX citation:@online{favre2022,\n  author = {Kiran Favre},\n  title = {Analysis of {California} {Coastal} {Erosion}},\n  date = {12/09/2022},\n  url = {https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nKiran Favre. 12AD–9AD. “Analysis of California Coastal\nErosion.” 12AD–9AD. https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/."
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Posts",
+    "section": "",
+    "text": "MEDS\n\n\ntest\n\n\nR\n\n\n\nThis is a description\n\n\n\nKiran Favre\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\nGeospatial\n\n\nCoastlines\n\n\n\nUPDATE THIS!!!!\n\n\n\nKiran Favre\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]

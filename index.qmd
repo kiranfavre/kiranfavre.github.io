@@ -1,7 +1,5 @@
 ---
-title: "kiranfavre.github.io"
+title: "Kiran Favre"
 ---
 
-## Website
-
-This is my new website!
+I am currently pursuing my Master's of Environmental Data Science at the Bren School for Environmental Science & Management at University of California, Santa Barbara. I recently earned a B.S. in Environmental Sciences from University of California, Santa Cruz.

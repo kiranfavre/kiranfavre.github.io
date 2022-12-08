@@ -1,0 +1,15 @@
+---
+title: "Analysis of California Coastal Erosion"
+description: UPDATE THIS!!!!
+editor: visual
+author:
+  - name: Kiran Favre
+    url: https://kiranfavre.github.io
+    affiliation: Master of Environmental Data Science
+    affiliation-url: https://ucsb-meds.github.io/
+date: 12-09-2022
+citation: 
+  url: https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/ 
+categories: [R, Geospatial, Coastlines]
+draft: false
+---

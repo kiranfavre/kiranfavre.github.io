@@ -1,9 +1,4 @@
 ---
 title: "About"
+editor: visual
 ---
-
-About this site
-
-```{r}
-1 + 1
-```
