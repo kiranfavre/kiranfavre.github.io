@@ -16,9 +16,6 @@ format:
   html:
     code-fold: true
     code-summary: "Hide"
-code-overflow: wrap
-code-block-bg: true
-code-block-border-left: "#6B5A75"
 ---
 
 ## **MOTIVATION**
@@ -88,7 +85,7 @@ socal_NSM <- (CA_2015_shoreline) |>
   na.omit()
 ```
 
-```{r, warning=FALSE, message=FALSE, results='hide'}
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
 #Norcal
 norcal_NSM_hist_n <- ggplot(norcal_NSM, aes(x = NSM)) +
   geom_histogram(bins = 50,
@@ -142,7 +139,7 @@ socal_NSM_hist <- ggplot(socal_NSM, aes(x = NSM)) +
 
 ### ANALYSIS
 
-I will begin with hypothesis testing to determine whether the mean net shoreline movement is the same in each region.
+To understand more about if there is a relationship between location along the coast and net shoreline movement, I chose to break California into its three study regions: Northern, Central, and Southern. I will begin with hypothesis testing to determine whether the mean net shoreline movement is the same in each region.
 
 $$
 H_0:\mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} = 0$$
@@ -153,7 +150,24 @@ $$
 
 I calculated the average of each region, and found that the average net shoreline movement is greatest in Central California and least in Southern California. A positive value for net shoreline movement indicates an extending coastline, where a negative value indicates erosion, so the most negative values here indicate more erosion.
 
-To determine if there is a relationship between location along the coast and net shoreline movement, I chose to break California into its three study regions: Northern, Central, and Southern. I began with running a multiple linear regression of the impact of location on net shoreline movement. Using the equation:
+```{r, warning=FALSE, message=FALSE}
+norcal_mean_NSM <- mean(norcal_NSM$NSM)
+
+cencal_mean_NSM <- mean(cencal_NSM$NSM)
+
+socal_mean_NSM <- mean(socal_NSM$NSM)
+
+#make df to plot
+Region <- c("Northern CA",
+            "Central CA",
+            "Southern CA")
+Mean_NSM <- c("-25.512", "-45.702", "-9.743")
+
+df <- data.frame(Region, Mean_NSM)
+print(df)
+```
+
+Next, I ran a multiple linear regression of the impact of location on net shoreline movement. Using the equation:
 
 $$NSM =\beta_{0}+\beta_{1} \cdot Longitude +\beta_{2} \cdot \text Latitude+\varepsilon_i$$
 I broke the data into the regions, and used this model for each region. Using RStudio, I was able to calculate the values for the coefficients, listed below.
@@ -161,17 +175,200 @@ I broke the data into the regions, and used this model for each region. Using RS
 ## 
 **RESULTS**
 
+```{r, warning=FALSE, message=FALSE}
+
+#make model 
+mod_n <- lm(NSM ~ Long + Lat,
+            data = norcal_NSM)
+summary(mod_n)
+
+#plot longitude vs NSM
+norcal_mod_lon <- ggplot(data = norcal_NSM,
+       aes(x = Long,
+             y = NSM,
+             color = NSM)) +
+  geom_point() +
+  geom_jitter() +
+  geom_line(data = augment(mod_n), aes(y = .fitted,),
+            color = "blue") +
+  labs(x = "Long",
+       y = "NSM",
+       main = "Multiple linear regression of NSM ~ Long + Lat") +
+  theme_minimal() +
+  scale_color_gradient(low = "purple", high = "orange") +
+  theme(panel.grid = element_blank(),
+        axis.text.x= element_text(size=5.5),
+        axis.title = element_text(size = 8),
+        legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 7))
+
+#plot latitude vs NSM 
+norcal_mod_lat <- ggplot(data = norcal_NSM, aes(x = Lat,
+                                        y = NSM,
+                                        color = NSM)) +
+  geom_point() +
+  geom_jitter() +
+  geom_line(data = augment(mod_n), aes(y = .fitted,),
+            color = "blue") +
+  labs(x = "Lat",
+       y = "NSM",
+       main = "Multiple linear regression of NSM ~ Long + Lat") +
+  theme_minimal() +
+  scale_color_gradient(low = "purple", high = "orange") +
+  theme(panel.grid = element_blank(),
+        axis.text.x= element_text(size=5.5),
+        axis.title = element_text(size = 8),
+        legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 7))
+
+ggarrange(norcal_mod_lon, norcal_mod_lat)
+```
+
 Northern California:
 
 ![Figure 1. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters).](images/norcal_mod_regression-03.png)\
+Figure 4. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Northern California.
+
+```{r, warning=FALSE, message=FALSE, results = "hide"}
+
+#make model for cencal 
+mod_c <- lm(NSM ~ Long + Lat,
+            data = cencal_NSM)
+summary(mod_c)
+#plot mod on Long vs NSM
+cencal_mod_lon <- ggplot(data = cencal_NSM, aes(x = Long,
+                                        y = NSM,
+                                        color = NSM)) +
+  geom_point() +
+  geom_jitter() +
+  geom_line(data = augment(mod_c), aes(y = .fitted,),
+            color = "blue") +
+  labs(x = "Long",
+       y = "NSM") +
+  theme_minimal() +
+  scale_color_gradient(low = "purple", high = "orange") +
+  theme(panel.grid = element_blank(),
+        axis.text.x= element_text(size=5.5),
+        axis.title = element_text(size = 8),
+        legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 7))
+
+#model on latitude vs NSM
+cencal_mod_lat <- ggplot(data = cencal_NSM, aes(x = Lat,
+                                        y = NSM,
+                                        color = NSM)) +
+  geom_point() +
+  geom_jitter() +
+  geom_line(data = augment(mod_c), aes(y = .fitted,),
+            color = "blue") +
+  labs(x = "Lat",
+       y = "NSM",
+       main = "Multiple linear regression of NSM ~ Long + Lat") +
+  theme_minimal() +
+  scale_color_gradient(low = "purple", high = "orange") +
+  theme(panel.grid = element_blank(),
+        axis.text.x= element_text(size=5.5),
+        axis.title = element_text(size = 8),
+        legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 7))
+
+#plot side by side
+ggarrange(cencal_mod_lon, cencal_mod_lat)
+```
 
 Central California:
 
-![Figure 2. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Central California.](images/cencal_mod_regression.png)
+![Figure 5. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Central California.](images/cencal_mod_regression.png)
+
+```{r, warning=FALSE, message=FALSE, results = "hide"}
+
+#make model for southern CA
+mod_s <- glm(NSM ~ Long + Lat,
+            data = socal_NSM)
+summary(mod_s)
+
+#plot model on longitude vs NSM
+socal_mod_lon <- ggplot(data = socal_NSM, aes(x = Long,
+                                        y = NSM,
+                                        color = NSM)) +
+  geom_point() +
+  geom_jitter() +
+  geom_line(data = augment(mod_s), aes(y = .fitted,),
+            color = "blue") +
+  labs(x = "Longitude (degrees)",
+       y = "NSM") +
+  theme_minimal() +
+  scale_color_gradient(low = "purple", high = "orange") +
+  theme(panel.grid = element_blank(),
+        axis.text.x=element_text(size=5.5),
+        axis.title = element_text(size = 8),
+        legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 7))
+
+#model on lat vs NSM
+socal_mod_lat <- ggplot(data = socal_NSM, aes(x = Lat,
+                                        y = NSM,
+                                        color = NSM)) +
+  geom_point() +
+  geom_jitter() +
+  geom_line(data = augment(mod_s), aes(y = .fitted,),
+            color = "blue") +
+  labs(x = "Latitude(degrees)",
+       y = "NSM") +
+  theme_minimal() +
+  scale_color_gradient(low = "purple", high = "orange") +
+  theme(panel.grid = element_blank(),
+        axis.text.x= element_text(size=5.5),
+        axis.title = element_text(size = 8),
+        legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 7)) 
+
+#plot side by side
+ggarrange(socal_mod_lon, socal_mod_lat)
+```
 
 Southern California:
 
-![Figure 3. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Southern California.](images/socal_mod_regression.png)
+![Figure 6. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Southern California.](images/socal_mod_regression.png)
+
+Northern California Regression Model Summary:
+
+```{r, warning= FALSE, message = FALSE}
+
+mod_n <- lm(NSM ~ Long + Lat,
+            data = norcal_NSM)
+tab_model(mod_n)
+```
+
+Central California Regression Model Summary:
+
+```{r, warning= FALSE, message = FALSE}
+mod_c <- lm(NSM ~ Long + Lat,
+            data = cencal_NSM)
+tab_model(mod_c)
+```
+
+Southern California Regression Model Summary:
+
+```{r, warning= FALSE, message = FALSE}
+mod_s <- lm(NSM ~ Long + Lat,
+            data = socal_NSM)
+tab_model(mod_s)
+
+```
+
+## 
+DISCUSSION
+
+These plots indicate that there is a relationship between location in California and net shoreline movement. For the most part, as longitude decreases (moving eastward), net shoreline movement decrease (coastal erosion). As latitude increases (moving northward), net shoreline movement increases (coastal extension). These models indicate that shorelines that are more southeastern are at risk for more coastal erosion.
+
+The regression summary tables
 
 ## **FUTURE RESEARCH**
 
