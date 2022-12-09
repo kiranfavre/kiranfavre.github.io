@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "blog_post.html",
-    "href": "blog_post.html",
-    "title": "My Blog",
-    "section": "",
-    "text": "MEDS\n\n\ntest\n\n\nR\n\n\n\nThis is a description\n\n\n\nKiran Favre\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\nGeospatial\n\n\nCoastlines\n\n\n\nUPDATE THIS!!!!\n\n\n\nKiran Favre\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Kiran Favre",
@@ -21,24 +14,24 @@
     "text": "Here’s some more text\nHere I’m going to cite my blog post from last year []"
   },
   {
+    "objectID": "posts/2022-12-08_EDS222_final/index.html",
+    "href": "posts/2022-12-08_EDS222_final/index.html",
+    "title": "Analysis of California Coastal Erosion",
+    "section": "",
+    "text": "The effects of climate change are being understood as they happen. Coastal erosion is a natural process of sediment removal that occurs due to storms and waves. Anthropogenic influences on coastal erosion are thought to have occurred via increasing sea levels. While this is a natural process, there have been questions about whether coastlines are eroding faster than they used to? There is no doubt that beaches have changed, but houses and other structures collapsing into the ocean has increased interest in how coastlines are changing in response to climate change. There is evidence that sea levels are rising ,...\nCalifornia has a very dynamic shoreline. Its exposure to atmospheric rivers and oceanic currents, and the interactions between the two make the California coastline quite unstable. Coastal erosion is a threat to a variety of coastal infrastructures. As of 2015, approximately 68% (26.3 million people) of California residents live in a coastal area (within approximately half a mile of the mean high water line). something about west coast tectonic activity vs east coast \nEfforts to mitigate and adapt to erosion along the coastline have been made with increasing concern for displacement of communities and safety. The Department of Boating & WaterwaysWhen action is needed, erosion control options can include \"soft solutions\" such as sand replenishment and dune restoration, \"hard solutions\" like seawalls and jetties, or some combination thereof. State policy encourages use of soft solutions instead of hardening where feasible, but each situation requires a careful review of all possible alternatives in light of costs, impacts, and efficacy. \nWest Coast could improve modeling and understanding of coastal change (allude back to earlier paragraph, can use link at the end of paragraph 2 to beef this up). This recent study inspired me to look further into coastal erosion in California. With how dynamic the shoreline is in lieu of natural processes, in addition to anthropogenic influences, it is important to improve the understanding of how the coastline is changing. \nDATA\nThe data used for this analysis were produced by Coastal and Marine Hazards and Resources Program with the United States Geological Survey. This data is publicly available through the USGS ScienceBase-Catalog. I used two datasets from a wdata release from the Pacific Coastal and Marine Science Center. The spatial range spans the California coast, given in Universal Transverse Mercator (UTM) coordinates and degrees latitude and longitude. California is broken into three regions: Northern, Central, and Southern. \nI used two data sets that differ in temporal range. The first dataset includes shoreline change rates in the form of end point rate from 1998/2002* to 2016. End point rates, in meters per year, serve as one metric of long-term shoreline change. These values are calculated using USGS's Digital Shoreline Analysis System (DSAS) and can be determined by taking therate of net shoreline movement per year. \nThe second dataset I used includes shoreline change data along the coast of California from 2015-2016. Net shoreline movement, in meters, serves as the metric of shoreline change in this data set. This data was compiled to observe changes in the shoreline in response to extreme weather, as it was collected during an El Niño event (2015 marking 'before an El Niño' and 2016 marking 'after an El Niño'). Net shoreline movement was 'calculated at a transect spacing of 50 meters as a proxy for sandy shoreline change throughout the El Nino winter season.'\nOne limitation to this data is the assumption of a constant operational mean high water among regions in California that varied by region, but not within the regions themselves. Another limitation is that I am using observations derived from USGS's DSAS and Light Detection and Ranging (LiDAR) digital elevation models (DEMs), where these may have used their own assumptions that could introduce bias into this dataset.\n\n*Observations for Central and Southern California began in 1998, while observations in Northern California began in 2002. \n\n\nWarning: package 'gstat' was built under R version 4.2.2\n\n\nWarning: package 'automap' was built under R version 4.2.2\n\n\nWarning: package 'dismo' was built under R version 4.2.2\n\n\n\n\nHide\nCA_2015_shoreline <- st_read(file.path(rootdir,\n                       \"data\",\n                       \"CA_shoreline_changes\",\n                       \"2015_2016_shoreline_changes\",\n                       \"CA_2015_2016_shoreline_change.shp\"))\n\n\nReading layer `CA_2015_2016_shoreline_change' from data source \n  `C:\\Users\\kiran\\Documents\\MEDS 2022-2023\\EDS222_Stats\\eds222_final\\data\\CA_shoreline_changes\\2015_2016_shoreline_changes\\CA_2015_2016_shoreline_change.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 8173 features and 10 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: 380915.5 ymin: 3615477 xmax: 1052115 ymax: 4650274\nProjected CRS: NAD83 / UTM zone 10N\n\n\n\n\n\nCitationBibTeX citation:@online{favre2022,\n  author = {Kiran Favre},\n  title = {Analysis of {California} {Coastal} {Erosion}},\n  date = {12/09/2022},\n  url = {https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nKiran Favre. 12AD–9AD. “Analysis of California Coastal\nErosion.” 12AD–9AD. https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/."
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
+    "section": "",
+    "text": "MEDS\n\n\ntest\n\n\nR\n\n\n\nThis is a description\n\n\n\nKiran Favre\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\nGeospatial\n\n\nCoastlines\n\n\n\nUPDATE THIS!!!!\n\n\n\nKiran Favre\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "resume.html",
     "href": "resume.html",
     "title": "Resume",
     "section": "",
     "text": "1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "posts/2022-12-08_EDS222_final/index.html",
-    "href": "posts/2022-12-08_EDS222_final/index.html",
-    "title": "Analysis of California Coastal Erosion",
-    "section": "",
-    "text": "BibTeX citation:@online{favre2022,\n  author = {Kiran Favre},\n  title = {Analysis of {California} {Coastal} {Erosion}},\n  date = {12/09/2022},\n  url = {https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nKiran Favre. 12AD–9AD. “Analysis of California Coastal\nErosion.” 12AD–9AD. https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/."
-  },
-  {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Posts",
-    "section": "",
-    "text": "MEDS\n\n\ntest\n\n\nR\n\n\n\nThis is a description\n\n\n\nKiran Favre\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\nGeospatial\n\n\nCoastlines\n\n\n\nUPDATE THIS!!!!\n\n\n\nKiran Favre\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]

@@ -12,4 +12,101 @@ citation:
   url: https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/ 
 categories: [R, Geospatial, Coastlines]
 draft: false
+format:
+  html:
+    code-fold: true
+    code-summary: "Hide"
+code-overflow: wrap
+code-block-bg: true
+code-block-border-left: "#6B5A75"
 ---
+
+## **MOTIVATION**
+
+Coastal erosion is a natural process of sediment removal that occurs due to storms and waves. Climate change has caused sea levels to rise, increasing concerns for possible effects on the coastlines. While this is a natural process, some coastal communities could be facing more coastal erosion than others considering the level of development along the coast. As of 2015, approximately [68% (26.3 million people](https://coast.noaa.gov/states/california.html)) of California residents live in a coastal area ([within approximately half a mile of the mean high water line](https://coast.noaa.gov/czm/mystate/#:~:text=The%20California%20coastal%20zone%20generally,line%20of%20highest%20tidal%20action.)) and have likely witnessed some level of coastal erosion. California's coastlines are also susceptible to coastal erosion due to its tectonic activity and exposure to extreme weather events such as ENSO.
+
+Efforts to mitigate and adapt to erosion along the coastline have been made with increasing concern for displacement of communities and safety. [The Department of Boating & Waterways ](https://dbw.parks.ca.gov/?page_id=28766) is responsible for responding to coastal erosion in California. In areas in need of attention, such as where roads or homes collapse off of cliff tops or beach front properties being flooded, there are different levels of responses depending on the intensity of erosion. Sand replenishment and seawall or jetty installation are currently used to maintain the current infrastructure along the coastlines. This type of analysis can help in evaluating areas that need different solutions depending on the level of shoreline change.
+
+## **DATA**
+
+The data used for this analysis were produced by Coastal and Marine Hazards and Resources Program with the United States Geological Survey. This data is publicly available through the [USGS ScienceBase-Catalog](https://www.sciencebase.gov/catalog/). I used data from a data release from the Pacific Coastal and Marine Science Center. The spatial range spans the California coast, given in Universal Transverse Mercator (UTM) coordinates and degrees latitude and longitude. California is broken into three regions: Northern, Central, and Southern. 
+
+[The first dataset](https://www.sciencebase.gov/catalog/item/5f9317b882ce720ee2d5970a) includes shoreline change rates in the form of end point rate from 1998/2002\* to 2016. End point rates, in meters per year, serve as one metric of long-term shoreline change. These values are calculated using USGS\'s Digital Shoreline Analysis System (DSAS) and can be determined by taking the[ rate of net shoreline movement per year](https://shorelinechange.uconn.edu/data-compilation/). 
+
+[The second dataset](https://www.sciencebase.gov/catalog/item/5f9317c482ce720ee2d5970c) I used includes shoreline change data along the coast of California from 2015-2016. Net shoreline movement, in meters, serves as the metric of shoreline change in this data set. This data was compiled to observe changes in the shoreline in response to extreme weather, as it was collected during an El Niño event (2015 marking \'before an El Niño\' and 2016 marking \'after an El Niño\'). Net shoreline movement was \'calculated at a transect spacing of 50 meters as a proxy for sandy shoreline change throughout the El Nino winter season.\'
+
+One limitation to this data is the assumption of a constant operational mean high water among regions in California that varied by region, but not within the regions themselves. Another limitation is that I am using observations derived from USGS\'s DSAS and Light Detection and Ranging (LiDAR) digital elevation models (DEMs), where these may have used their own assumptions that could introduce bias into this data set.
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+library(dplyr)
+library(tidyverse)
+library(here)
+library(sf)
+library(foreign)
+library(sp)
+library(raster)
+library(ggplot2)
+library(patchwork)
+library(ggpubr)
+library(rgeos)
+library(broom)
+library(ggpubr)
+
+
+#define root directory
+rootdir <- ("~/MEDS 2022-2023/EDS222_Stats/eds222_final") 
+```
+
+![Figure 1. Distribution of Net Shoreline Movement in Northern California.](images/norcal_NSM_hist.png)
+
+![Figure 2. Distribution of Net Shoreline Movement in Central California.](images/cencal_hist.png)
+
+![Figure 3. Distribution of Net Shoreline Movement in Southern California.](images/socal_hist.png)
+
+These figures of the distribution of net shoreline movement demonstrate how the distribution of shoreline movement that is approximately normal
+
+### ANALYSIS
+
+To determine if there is a relationship between location along the coast and net shoreline movement, I chose to break California into its three study regions: Northern, Central, and Southern. I began with running a multiple linear regression of the impact of location on net shoreline movement. Using the equation:
+
+$$NSM =\beta_{0}+\beta_{1} \cdot Longitude +\beta_{2} \cdot \text Latitude+\varepsilon_i$$
+I broke the data into the regions, and used this model for each region. Using RStudio, I was able to calculate the values for the coefficients, listed below.
+
+## 
+**RESULTS**
+
+Northern California:
+
+![Figure 1. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters).](images/norcal_mod_regression-03.png)\
+
+Central California:
+
+![Figure 2. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Central California.](images/cencal_mod_regression.png)
+
+Southern California:
+
+![Figure 3. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Southern California.](images/socal_mod_regression.png)
+
+## **FUTURE RESEARCH**
+
+More monitoring of this coastline will be essential in forming helpful policy and adaptation strategies. Along with the data collection itself, the model used here could be improved in the future to account for discrepancies here. Another analysis that could be helpful in answering this question would be a time series decomposition analysis. This data did not have time observations, rather metrics already calculated based on the time interval provided. These models can also be applied to other areas in the United States or globally that are facing similar problems. 
+
+West Coast could improve modeling and understanding of coastal change (allude back to earlier paragraph, can use link at the end of paragraph 2 to beef this up). [This recent study](https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released) inspired me to look further into coastal erosion in California. With how dynamic the shoreline is in lieu of natural processes, in addition to anthropogenic influences, it is important to improve the understanding of how the coastline is changing. The effects of climate change are being understood as they happen.
+
+\
+
+\*Observations for Central and Southern California began in 1998, while observations in Northern California began in 2002. 
+
+### REFERENCES
+
+1.  Barnard, P.L., Smith, S.A., and Foxgrover, A.C., 2020, California shorelines and shoreline change data, 1998-2016: U.S. Geological Survey data release, <https://doi.org/10.5066/P91QSGXF>
+
+2.  \"California.\" NOAA Office for Coastal Management, https://coast.noaa.gov/states/california.html. 
+
+3.  Koppes, Steve. New High-Resolution Study on California Coastal Cliff Erosion Released, Scripps Institution of Oceanography, 4 Aug. 2022, https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released. 
+
+4.  NOAA Office for Coastal Management ADS Group. \"Coastal Zone Management Programs.\" NOAA Office for Coastal Management \| States and Territories Working on Ocean and Coastal Management, https://coast.noaa.gov/czm/mystate/#:\~:text=The%20California%20coastal%20zone%20generally,line%20of%20highest%20tidal%20action. 
+
+5.  Patten, Peg Van. \"Measuring Changes.\" Connecticut Shoreline Change, University of Connecticut, 9 Jan. 2017, https://shorelinechange.uconn.edu/data-compilation/. 
+
+6.  \"U.S. Climate Resilience Toolkit.\" Coastal Erosion \| U.S. Climate Resilience Toolkit, https://toolkit.climate.gov/topics/coastal-flood-risk/coastal-erosion
