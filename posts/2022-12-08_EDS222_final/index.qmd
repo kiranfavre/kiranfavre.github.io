@@ -1,6 +1,7 @@
 ---
 title: "Analysis of California Coastal Erosion"
-description: UPDATE THIS!!!!
+description: Where are the California Coastlines Eroding the Most? I will be running a muliple linear regression analysis using USGS Coastal Change data.
+
 editor: visual
 author:
   - name: Kiran Favre
@@ -11,7 +12,6 @@ date: 12-09-2022
 citation: 
   url: https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/ 
 categories: [R, Geospatial, Coastlines]
-draft: false
 format:
   html:
     code-fold: true
@@ -29,13 +29,13 @@ Efforts to mitigate and adapt to erosion along the coastline have been made with
 
 ## **DATA**
 
-The data used for this analysis were produced by Coastal and Marine Hazards and Resources Program with the United States Geological Survey. This data is publicly available through the [USGS ScienceBase-Catalog](https://www.sciencebase.gov/catalog/). I used data from a data release from the Pacific Coastal and Marine Science Center. The spatial range spans the California coast, given in Universal Transverse Mercator (UTM) coordinates and degrees latitude and longitude. California is broken into three regions: Northern, Central, and Southern. 
+The data used for this analysis was produced by Coastal and Marine Hazards and Resources Program with the United States Geological Survey. This data is publicly available through the [USGS ScienceBase-Catalog](https://www.sciencebase.gov/catalog/) through a data release from the Pacific Coastal and Marine Science Center. The spatial range spans the California coast, given in Universal Transverse Mercator (UTM) coordinates and degrees latitude and longitude. California is broken into three regions: Northern, Central, and Southern. 
 
-[The first dataset](https://www.sciencebase.gov/catalog/item/5f9317b882ce720ee2d5970a) includes shoreline change rates in the form of end point rate from 1998/2002\* to 2016. End point rates, in meters per year, serve as one metric of long-term shoreline change. These values are calculated using USGS\'s Digital Shoreline Analysis System (DSAS) and can be determined by taking the[ rate of net shoreline movement per year](https://shorelinechange.uconn.edu/data-compilation/). 
+[The dataset](https://www.sciencebase.gov/catalog/item/5f9317c482ce720ee2d5970c) I used includes shoreline change data along the coast of California from 2015-2016. Net shoreline movement, in meters, serves as the metric of shoreline change. This data was compiled to observe changes in the shoreline in response to extreme weather, as it was collected during an El Niño event (2015 marking \'before an El Niño\' and 2016 marking \'after an El Niño\'). Net shoreline movement was \'calculated at a transect spacing of 50 meters as a proxy for sandy shoreline change throughout the El Nino winter season \[\^1\].
 
-[The second dataset](https://www.sciencebase.gov/catalog/item/5f9317c482ce720ee2d5970c) I used includes shoreline change data along the coast of California from 2015-2016. Net shoreline movement, in meters, serves as the metric of shoreline change in this data set. This data was compiled to observe changes in the shoreline in response to extreme weather, as it was collected during an El Niño event (2015 marking \'before an El Niño\' and 2016 marking \'after an El Niño\'). Net shoreline movement was \'calculated at a transect spacing of 50 meters as a proxy for sandy shoreline change throughout the El Nino winter season.\'
+One limitation to this data is the assumption of a constant operational mean high water among regions in California that varied by region, but not within the regions themselves. Another limitation is that I am using observations derived from USGS\'s DSAS and Light Detection and Ranging (LiDAR) digital elevation models (DEMs), where these may have used their own assumptions that could introduce bias into this data set. Another limitation is the unequal distribution of observations per region: Southern California has many more observations than Northern or Central California, so an analysis on Southern California may be more representative of the population than the other regions.
 
-One limitation to this data is the assumption of a constant operational mean high water among regions in California that varied by region, but not within the regions themselves. Another limitation is that I am using observations derived from USGS\'s DSAS and Light Detection and Ranging (LiDAR) digital elevation models (DEMs), where these may have used their own assumptions that could introduce bias into this data set.
+To explore the data, I made histograms to understand the distribution of net shoreline movement in each region of California. The data is approximately normally distributed in all of California, with the most normal distribution in Southern California.
 
 ```{r, warning=FALSE, message=FALSE, results='hide'}
 library(dplyr)
@@ -51,10 +51,87 @@ library(ggpubr)
 library(rgeos)
 library(broom)
 library(ggpubr)
-
-
+library(sjPlot)
+ 
 #define root directory
 rootdir <- ("~/MEDS 2022-2023/EDS222_Stats/eds222_final") 
+```
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+#read in 2015 data
+CA_2015_shoreline <- st_read(file.path(rootdir,
+                       "data",
+                       "CA_shoreline_changes",
+                       "2015_2016_shoreline_changes",
+                       "CA_2015_2016_shoreline_change.shp"))
+```
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+#has only norcal observations
+norcal_NSM <- CA_2015_shoreline |>
+  filter(Region == "n") |> 
+  dplyr::select(NSM, Lat, Long) |> 
+  na.omit()
+
+
+#has only cencal observations
+cencal_NSM <- (CA_2015_shoreline) |>
+  filter(Region == "c") |> 
+  dplyr::select(NSM, Lat, Long) |> 
+  na.omit()
+
+
+#has only socal observations
+socal_NSM <- (CA_2015_shoreline) |> 
+  filter(Region == "s") |> 
+  dplyr::select(NSM, Lat, Long) |> 
+  na.omit()
+```
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+#Norcal
+norcal_NSM_hist_n <- ggplot(norcal_NSM, aes(x = NSM)) +
+  geom_histogram(bins = 50,
+                 fill = "skyblue") +
+  labs(x = "Net Shoreline Movement (m)",
+       y = "Count",
+       title = "Distribution of Net Shoreline Movement in Northern California",
+       ) +
+  theme_minimal() +
+  theme(plot.title = element_text(size=5.5), 
+        axis.title = element_text(size = 7))  
+
+norcal_NSM_hist_n
+```
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+#Cencal
+cencal_NSM_hist <- ggplot(cencal_NSM, aes(x = NSM)) +
+  geom_histogram(bins = 50,
+                 fill = "skyblue") +
+  labs(x = "Net Shoreline Movement (m)",
+       y = "Count",
+       title = "Distribution of Net Shoreline Movement in Central California") +
+  theme_minimal() +
+  theme(plot.title = element_text(size=5.5),
+        axis.title = element_text(size = 7)) 
+
+cencal_NSM_hist
+```
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+#Socalsocal_NSM_hist
+socal_NSM_hist <- ggplot(socal_NSM, aes(x = NSM)) +
+  geom_histogram(bins = 50,
+                 fill = "skyblue") +
+  labs(x = "Net Shoreline Movement (m)",
+       y = "Count",
+       title = "Distribution of Net Shoreline Movement in Southern California") +
+  theme_minimal() +
+  theme(plot.title = element_text(size=5.5), 
+        axis.title = element_text(size = 7))  
+
+
 ```
 
 ![Figure 1. Distribution of Net Shoreline Movement in Northern California.](images/norcal_NSM_hist.png)
@@ -63,9 +140,18 @@ rootdir <- ("~/MEDS 2022-2023/EDS222_Stats/eds222_final")
 
 ![Figure 3. Distribution of Net Shoreline Movement in Southern California.](images/socal_hist.png)
 
-These figures of the distribution of net shoreline movement demonstrate how the distribution of shoreline movement that is approximately normal
-
 ### ANALYSIS
+
+I will begin with hypothesis testing to determine whether the mean net shoreline movement is the same in each region.
+
+$$
+H_0:\mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} = 0$$
+
+$$
+ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0 
+$$
+
+I calculated the average of each region, and found that the average net shoreline movement is greatest in Central California and least in Southern California. A positive value for net shoreline movement indicates an extending coastline, where a negative value indicates erosion, so the most negative values here indicate more erosion.
 
 To determine if there is a relationship between location along the coast and net shoreline movement, I chose to break California into its three study regions: Northern, Central, and Southern. I began with running a multiple linear regression of the impact of location on net shoreline movement. Using the equation:
 
@@ -107,6 +193,4 @@ West Coast could improve modeling and understanding of coastal change (allude ba
 
 4.  NOAA Office for Coastal Management ADS Group. \"Coastal Zone Management Programs.\" NOAA Office for Coastal Management \| States and Territories Working on Ocean and Coastal Management, https://coast.noaa.gov/czm/mystate/#:\~:text=The%20California%20coastal%20zone%20generally,line%20of%20highest%20tidal%20action. 
 
-5.  Patten, Peg Van. \"Measuring Changes.\" Connecticut Shoreline Change, University of Connecticut, 9 Jan. 2017, https://shorelinechange.uconn.edu/data-compilation/. 
-
-6.  \"U.S. Climate Resilience Toolkit.\" Coastal Erosion \| U.S. Climate Resilience Toolkit, https://toolkit.climate.gov/topics/coastal-flood-risk/coastal-erosion
+5.  \"U.S. Climate Resilience Toolkit.\" Coastal Erosion \| U.S. Climate Resilience Toolkit, https://toolkit.climate.gov/topics/coastal-flood-risk/coastal-erosion
