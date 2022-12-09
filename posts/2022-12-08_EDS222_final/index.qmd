@@ -34,7 +34,7 @@ A limitation in this data is that I am using observations derived from USGS's DS
 
 To explore the data, I made histograms to understand the distribution of net shoreline movement in each region of California. The data is approximately normally distributed in all of California, with the most normal distribution in Southern California.
 
-```{r, warning=FALSE, message=FALSE, results='hide'}
+```{r, warning=FALSE, message=FALSE, results='hide', echo = FALSE}
 library(dplyr)
 library(tidyverse)
 library(here)
@@ -85,7 +85,7 @@ socal_NSM <- (CA_2015_shoreline) |>
   na.omit()
 ```
 
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
+```{r, warning=FALSE, message=FALSE, results = "hide"}
 #Norcal
 norcal_NSM_hist_n <- ggplot(norcal_NSM, aes(x = NSM)) +
   geom_histogram(bins = 50,
