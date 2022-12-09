@@ -131,21 +131,13 @@ socal_NSM_hist <- ggplot(socal_NSM, aes(x = NSM)) +
 
 ```
 
-![Figure 1. Distribution of Net Shoreline Movement in Northern California.](images/norcal_NSM_hist.png)
-
-![Figure 2. Distribution of Net Shoreline Movement in Central California.](images/cencal_hist.png)
-
-![Figure 3. Distribution of Net Shoreline Movement in Southern California.](images/socal_hist.png)
-
 ### ANALYSIS
 
 To understand more about if there is a relationship between location along the coast and net shoreline movement, I chose to break California into its three study regions: Northern, Central, and Southern. I will begin with hypothesis testing to determine whether the mean net shoreline movement is the same in each region.
 
 $$
-H_0:\mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} = 0$$
-
-$$
- H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0 
+H_0:\mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} = 0,
+H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 $$
 
 I calculated the average of each region, and found that the average net shoreline movement is greatest in Central California and least in Southern California. A positive value for net shoreline movement indicates an extending coastline, where a negative value indicates erosion, so the most negative values here indicate more erosion.
@@ -174,6 +166,8 @@ I broke the data into the regions, and used this model for each region. Using RS
 
 ## 
 **RESULTS**
+
+Northern California
 
 ```{r, warning=FALSE, message=FALSE}
 
@@ -226,10 +220,7 @@ norcal_mod_lat <- ggplot(data = norcal_NSM, aes(x = Lat,
 ggarrange(norcal_mod_lon, norcal_mod_lat)
 ```
 
-Northern California:
-
-![Figure 1. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters).](images/norcal_mod_regression-03.png)\
-Figure 4. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Northern California.
+Central California:
 
 ```{r, warning=FALSE, message=FALSE, results = "hide"}
 
@@ -280,9 +271,7 @@ cencal_mod_lat <- ggplot(data = cencal_NSM, aes(x = Lat,
 ggarrange(cencal_mod_lon, cencal_mod_lat)
 ```
 
-Central California:
-
-![Figure 5. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Central California.](images/cencal_mod_regression.png)
+Southern California:
 
 ```{r, warning=FALSE, message=FALSE, results = "hide"}
 
@@ -333,10 +322,6 @@ socal_mod_lat <- ggplot(data = socal_NSM, aes(x = Lat,
 ggarrange(socal_mod_lon, socal_mod_lat)
 ```
 
-Southern California:
-
-![Figure 6. Multiple Linear Regression of location (Latitude and Longitude in degrees) on Net Shoreline Movement (in meters) in Southern California.](images/socal_mod_regression.png)
-
 Northern California Regression Model Summary:
 
 ```{r, warning= FALSE, message = FALSE}
@@ -366,17 +351,20 @@ tab_model(mod_s)
 ## 
 DISCUSSION
 
+As the results of the hypothesis test show, the average net shoreline movement in each region of California is not equal. Due to this, we can reject the null hypothesis that the average net shoreline movement will be equal in all the regions.
+
 These plots indicate that there is a relationship between location in California and net shoreline movement. For the most part, as longitude decreases (moving eastward), net shoreline movement decrease (coastal erosion). As latitude increases (moving northward), net shoreline movement increases (coastal extension). These models indicate that shorelines that are more southeastern are at risk for more coastal erosion.
 
-The regression summary tables
+The regression summary tables can further help in understanding the relationship between location and net shoreline movement. In Northern California, about 6.8% of the variance in net shoreline movement is due to its latitude and longitude. In Central California, about 11.2% of the variance in net shoreline movement is due to its latitude and longitude. In Southern California, about 18.8% of the variance in net shoreline movement is due to its latitude and longitude. The coefficients represent the magnitude of effect of that variable on net shoreline movement. These differ greatly between each region, which could mean that each region faces different levels of environmental stressors causing differing levels of coastal erosion.
 
 ## **FUTURE RESEARCH**
 
 More monitoring of this coastline will be essential in forming helpful policy and adaptation strategies. Along with the data collection itself, the model used here could be improved in the future to account for discrepancies here. Another analysis that could be helpful in answering this question would be a time series decomposition analysis. This data did not have time observations, rather metrics already calculated based on the time interval provided. These models can also be applied to other areas in the United States or globally that are facing similar problems. 
 
-West Coast could improve modeling and understanding of coastal change (allude back to earlier paragraph, can use link at the end of paragraph 2 to beef this up). [This recent study](https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released) inspired me to look further into coastal erosion in California. With how dynamic the shoreline is in lieu of natural processes, in addition to anthropogenic influences, it is important to improve the understanding of how the coastline is changing. The effects of climate change are being understood as they happen.
+The west coast could improve modeling techniques and monitoring of coastal change. [This recent study](https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released) inspired me to look further into coastal erosion in California. With how dynamic the shoreline is in lieu of natural processes, in addition to anthropogenic influences, it is important to improve the understanding of how the coastline is changing. The effects of climate change are being understood as they happen, which is why improving monitoring is crucial in forming an analysis of coastal erosion.
 
 \
+
 
 \*Observations for Central and Southern California began in 1998, while observations in Northern California began in 2002. 
 
