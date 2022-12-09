@@ -1,6 +1,6 @@
 ---
 title: "Analysis of California Coastal Erosion"
-description: Where are the California Coastlines Eroding the Most? I will be running a muliple linear regression analysis using USGS Coastal Change data.
+description: Where are the California coastlines eroding the most? I will be running a muliple linear regression analysis using USGS Coastal Change data.
 
 editor: visual
 author:
@@ -11,7 +11,7 @@ author:
 date: 12-09-2022
 citation: 
   url: https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/ 
-categories: [R, Geospatial, Coastlines]
+categories: [R, Geospatial, California]
 format:
   html:
     code-fold: true
@@ -169,7 +169,7 @@ I broke the data into the regions, and used this model for each region. Using RS
 
 Northern California
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, results = "hide"}
 
 #make model 
 mod_n <- lm(NSM ~ Long + Lat,
@@ -349,7 +349,8 @@ tab_model(mod_s)
 ```
 
 ## 
-DISCUSSION
+
+## DISCUSSION
 
 As the results of the hypothesis test show, the average net shoreline movement in each region of California is not equal. Due to this, we can reject the null hypothesis that the average net shoreline movement will be equal in all the regions.
 
