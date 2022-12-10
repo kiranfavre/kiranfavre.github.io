@@ -1,6 +1,6 @@
 ---
 title: "Analysis of California Coastal Erosion"
-description: Where are the California coastlines eroding the most? I will be running a muliple linear regression analysis using USGS Coastal Change data.
+description: Using muliple linear regression analysis and USGS Coastal Change data to analyze where coastlines in California are eroding the most.
 
 editor: visual
 author:
@@ -15,7 +15,7 @@ categories: [R, Geospatial, California]
 format:
   html:
     code-fold: true
-    code-summary: "Hide"
+    code-summary: "Show code"
 ---
 
 ## **MOTIVATION**
@@ -85,7 +85,7 @@ socal_NSM <- (CA_2015_shoreline) |>
   na.omit()
 ```
 
-```{r, warning=FALSE, message=FALSE, results = "hide"}
+```{r, warning=FALSE, message=FALSE}
 #Norcal
 norcal_NSM_hist_n <- ggplot(norcal_NSM, aes(x = NSM)) +
   geom_histogram(bins = 50,
@@ -95,13 +95,13 @@ norcal_NSM_hist_n <- ggplot(norcal_NSM, aes(x = NSM)) +
        title = "Distribution of Net Shoreline Movement in Northern California",
        ) +
   theme_minimal() +
-  theme(plot.title = element_text(size=5.5), 
+  theme(plot.title = element_text(size=10), 
         axis.title = element_text(size = 7))  
 
 norcal_NSM_hist_n
 ```
 
-```{r, warning=FALSE, message=FALSE, results='hide'}
+```{r, warning=FALSE, message=FALSE}
 #Cencal
 cencal_NSM_hist <- ggplot(cencal_NSM, aes(x = NSM)) +
   geom_histogram(bins = 50,
@@ -110,13 +110,13 @@ cencal_NSM_hist <- ggplot(cencal_NSM, aes(x = NSM)) +
        y = "Count",
        title = "Distribution of Net Shoreline Movement in Central California") +
   theme_minimal() +
-  theme(plot.title = element_text(size=5.5),
+  theme(plot.title = element_text(size=10),
         axis.title = element_text(size = 7)) 
 
 cencal_NSM_hist
 ```
 
-```{r, warning=FALSE, message=FALSE, results='hide'}
+```{r, warning=FALSE, message=FALSE}
 #Socalsocal_NSM_hist
 socal_NSM_hist <- ggplot(socal_NSM, aes(x = NSM)) +
   geom_histogram(bins = 50,
@@ -125,13 +125,13 @@ socal_NSM_hist <- ggplot(socal_NSM, aes(x = NSM)) +
        y = "Count",
        title = "Distribution of Net Shoreline Movement in Southern California") +
   theme_minimal() +
-  theme(plot.title = element_text(size=5.5), 
+  theme(plot.title = element_text(size=10), 
         axis.title = element_text(size = 7))  
 
-
+socal_NSM_hist
 ```
 
-### ANALYSIS
+## **ANALYSIS**
 
 To understand if there is a relationship between location along the coast and net shoreline movement, I chose to analyze net shoreline movement by the three study regions: Northern, Central, and Southern California. I will begin with hypothesis testing to determine whether the mean net shoreline movement is the same in each region. The null hypothesis is that each region has the same average net shoreline movement. The alternative hypothesis is that each region does not have the same average net shoreline movement.
 
@@ -165,7 +165,7 @@ $$NSM =\beta_{0}+\beta_{1} \cdot Longitude +\beta_{2} \cdot \text Latitude+\vare
 
 ## 
 
-**RESULTS**
+## **RESULTS**
 
 Northern California
 
@@ -348,9 +348,7 @@ tab_model(mod_s)
 
 ```
 
-## 
-
-## DISCUSSION
+## **DISCUSSION**
 
 As the results of the hypothesis test show, the average net shoreline movement in each region of California is not equal. Due to this, I reject the null hypothesis that the average net shoreline movement will be equal in across all regions in California.
 
@@ -362,11 +360,7 @@ The regression summary tables can further help in understanding the estimated re
 
 More monitoring of this coastline will be essential in forming helpful policy and adaptation strategies. With how dynamic the shoreline is in lieu of natural processes, in addition to anthropogenic influences, it is important to improve the understanding of how the coastline is changing. The effects of climate change are being understood as they happen, which is why improving monitoring is crucial in forming an analysis of coastal erosion.
 
-Along with the data collection itself, the model used here could be improved in the future to account for discrepancies here. Another analysis that could be helpful in answering this question would be a time series decomposition analysis. This data did not have time observations, rather metrics already calculated based on the time interval provided. These models can also be applied to other areas in the United States or globally that are facing similar problems. Future analyses could also include spatial interpolation to estimate coastal erosion for all of California. [This recent study](https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released) inspired spatial interpolation as a future analysis.
-
-\
-
-\*Observations for Central and Southern California began in 1998, while observations in Northern California began in 2002. 
+Along with the data collection itself, the model used here could be improved in the future to account for discrepancies here. Another analysis that could be helpful in answering this question would be a time series decomposition analysis. This data did not have time observations, rather metrics already calculated based on the time interval provided. These models can also be applied to other areas in the United States or globally that are facing similar problems. Future analyses could also include spatial interpolation to estimate coastal erosion for all of California. [This recent study](https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released) inspired my suggestion for spatial interpolation as a future analysis.
 
 ### REFERENCES
 

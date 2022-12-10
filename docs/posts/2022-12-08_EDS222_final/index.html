@@ -8,7 +8,7 @@
 
 <meta name="author" content="Kiran Favre">
 <meta name="dcterms.date" content="2022-12-09">
-<meta name="description" content="Where are the California coastlines eroding the most? I will be running a muliple linear regression analysis using USGS Coastal Change data.">
+<meta name="description" content="Using muliple linear regression analysis and USGS Coastal Change data to analyze where coastlines in California are eroding the most.">
 
 <title>kiranfavre.github.io - Analysis of California Coastal Erosion</title>
 <style>
@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <h1 class="title">Analysis of California Coastal Erosion</h1>
                   <div>
         <div class="description">
-          Where are the California coastlines eroding the most? I will be running a muliple linear regression analysis using USGS Coastal Change data.
+          Using muliple linear regression analysis and USGS Coastal Change data to analyze where coastlines in California are eroding the most.
         </div>
       </div>
                           <div class="quarto-categories">
@@ -209,13 +209,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><strong>MOTIVATION</strong></a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><strong>DATA</strong></a>
-  <ul class="collapse">
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">ANALYSIS</a></li>
-  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><strong>DATA</strong></a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><strong>ANALYSIS</strong></a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">DISCUSSION</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><strong>RESULTS</strong></a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><strong>DISCUSSION</strong></a></li>
   <li><a href="#future-research" id="toc-future-research" class="nav-link" data-scroll-target="#future-research"><strong>FUTURE RESEARCH</strong></a>
   <ul class="collapse">
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">REFERENCES</a></li>
@@ -245,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in 2015 data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>CA_2015_shoreline <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">file.path</span>(rootdir,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"data"</span>,</span>
@@ -256,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#has only norcal observations</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>norcal_NSM <span class="ot">&lt;-</span> CA_2015_shoreline <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Region <span class="sc">==</span> <span class="st">"n"</span>) <span class="sc">|&gt;</span> </span>
@@ -280,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Norcal</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>norcal_NSM_hist_n <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(norcal_NSM, <span class="fu">aes</span>(<span class="at">x =</span> NSM)) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>,</span>
@@ -290,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of Net Shoreline Movement in Northern California"</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fl">5.5</span>), </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>))  </span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>norcal_NSM_hist_n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -301,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cencal</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cencal_NSM_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cencal_NSM, <span class="fu">aes</span>(<span class="at">x =</span> NSM)) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>,</span>
@@ -310,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of Net Shoreline Movement in Central California"</span>) <span class="sc">+</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fl">5.5</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>)) </span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>cencal_NSM_hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -321,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Socalsocal_NSM_hist</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>socal_NSM_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(socal_NSM, <span class="fu">aes</span>(<span class="at">x =</span> NSM)) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>,</span>
@@ -330,12 +328,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of Net Shoreline Movement in Southern California"</span>) <span class="sc">+</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fl">5.5</span>), </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>))  </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>socal_NSM_hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
-<section id="analysis" class="level3">
-<h3 class="anchored" data-anchor-id="analysis">ANALYSIS</h3>
+</div>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis"><strong>ANALYSIS</strong></h2>
 <p>To understand if there is a relationship between location along the coast and net shoreline movement, I chose to analyze net shoreline movement by the three study regions: Northern, Central, and Southern California. I will begin with hypothesis testing to determine whether the mean net shoreline movement is the same in each region. The null hypothesis is that each region has the same average net shoreline movement. The alternative hypothesis is that each region does not have the same average net shoreline movement.</p>
 <p><span class="math display">\[
 H_0:\mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} = 0,
@@ -344,7 +348,7 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <p>I calculated the average of each region, and found that the average net shoreline movement is not the same across regions. The average net shoreline movement was least in Central California and most in Southern California. A positive value for net shoreline movement indicates an extending coastline, where a negative value indicates erosion, so Central California is estimated to be experiencing the most erosion while Southern California is estimated to be experiencing the least.</p>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>norcal_mean_NSM <span class="ot">&lt;-</span> <span class="fu">mean</span>(norcal_NSM<span class="sc">$</span>NSM)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cencal_mean_NSM <span class="ot">&lt;-</span> <span class="fu">mean</span>(cencal_NSM<span class="sc">$</span>NSM)</span>
@@ -370,14 +374,15 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <p>Next, I ran a multiple linear regression of the impact of location on net shoreline movement. Using the equation:</p>
 <p><span class="math display">\[NSM =\beta_{0}+\beta_{1} \cdot Longitude +\beta_{2} \cdot \text Latitude+\varepsilon_i\]</span> I broke the data into the regions, and used this model for each region. Using RStudio, I was able to calculate the values for the coefficients, listed below.</p>
 </section>
-</section>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section"></h2>
-<p><strong>RESULTS</strong></p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results"><strong>RESULTS</strong></h2>
 <p>Northern California</p>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make model </span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mod_n <span class="ot">&lt;-</span> <span class="fu">lm</span>(NSM <span class="sc">~</span> Long <span class="sc">+</span> Lat,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> norcal_NSM)</span>
@@ -433,7 +438,7 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <p>Central California:</p>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make model for cencal </span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mod_c <span class="ot">&lt;-</span> <span class="fu">lm</span>(NSM <span class="sc">~</span> Long <span class="sc">+</span> Lat,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> cencal_NSM)</span>
@@ -487,7 +492,7 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <p>Southern California:</p>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make model for southern CA</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mod_s <span class="ot">&lt;-</span> <span class="fu">glm</span>(NSM <span class="sc">~</span> Long <span class="sc">+</span> Lat,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> socal_NSM)</span>
@@ -541,7 +546,7 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <p>Northern California Regression Model Summary:</p>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mod_n <span class="ot">&lt;-</span> <span class="fu">lm</span>(NSM <span class="sc">~</span> Long <span class="sc">+</span> Lat,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> norcal_NSM)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(mod_n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -593,7 +598,7 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <p>Central California Regression Model Summary:</p>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mod_c <span class="ot">&lt;-</span> <span class="fu">lm</span>(NSM <span class="sc">~</span> Long <span class="sc">+</span> Lat,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> cencal_NSM)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(mod_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -645,7 +650,7 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <p>Southern California Regression Model Summary:</p>
 <div class="cell">
 <details>
-<summary>Hide</summary>
+<summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod_s <span class="ot">&lt;-</span> <span class="fu">lm</span>(NSM <span class="sc">~</span> Long <span class="sc">+</span> Lat,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> socal_NSM)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(mod_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -695,11 +700,8 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 </div>
 </div>
 </section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1"></h2>
-</section>
 <section id="discussion" class="level2">
-<h2 class="anchored" data-anchor-id="discussion">DISCUSSION</h2>
+<h2 class="anchored" data-anchor-id="discussion"><strong>DISCUSSION</strong></h2>
 <p>As the results of the hypothesis test show, the average net shoreline movement in each region of California is not equal. Due to this, I reject the null hypothesis that the average net shoreline movement will be equal in across all regions in California.</p>
 <p>These plots indicate that there is a relationship between location in California and net shoreline movement. For the most part, as longitude decreases (moving eastward), the predicted net shoreline movement decrease (coastal erosion). As latitude increases (moving northward), the predicted net shoreline movement increases (coastal extension). These models estimate that shorelines that are more southeastern are at risk for more coastal erosion.</p>
 <p>The regression summary tables can further help in understanding the estimated relationship between location and net shoreline movement. The model predicts the following: in Northern California, about 6.8% of the variance in net shoreline movement is due to its latitude and longitude. In Central California, about 11.2% of the variance in net shoreline movement is due to its latitude and longitude. In Southern California, about 18.8% of the variance in net shoreline movement is due to its latitude and longitude. The coefficients represent the magnitude of effect of that variable on net shoreline movement. These differ greatly between each region, which could mean that each region faces different levels of environmental stressors causing differing levels of coastal erosion.</p>
@@ -707,10 +709,7 @@ H_1: \mu_{Norcal} - \mu_{Cencal} - \mu_{Socal} \neq 0
 <section id="future-research" class="level2">
 <h2 class="anchored" data-anchor-id="future-research"><strong>FUTURE RESEARCH</strong></h2>
 <p>More monitoring of this coastline will be essential in forming helpful policy and adaptation strategies. With how dynamic the shoreline is in lieu of natural processes, in addition to anthropogenic influences, it is important to improve the understanding of how the coastline is changing.&nbsp;The effects of climate change are being understood as they happen, which is why improving monitoring is crucial in forming an analysis of coastal erosion.</p>
-<p>Along with the data collection itself, the model used here could be improved in the future to account for discrepancies here. Another analysis that could be helpful in answering this question would be a time series decomposition analysis. This data did not have time observations, rather metrics already calculated based on the time interval provided. These models can also be applied to other areas in the United States or globally that are facing similar problems. Future analyses could also include spatial interpolation to estimate coastal erosion for all of California. <a href="https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released">This recent study</a> inspired spatial interpolation as a future analysis.</p>
-<p><br>
-</p>
-<p>*Observations for Central and Southern California began in 1998, while observations in Northern California began in 2002.&nbsp;</p>
+<p>Along with the data collection itself, the model used here could be improved in the future to account for discrepancies here. Another analysis that could be helpful in answering this question would be a time series decomposition analysis. This data did not have time observations, rather metrics already calculated based on the time interval provided. These models can also be applied to other areas in the United States or globally that are facing similar problems. Future analyses could also include spatial interpolation to estimate coastal erosion for all of California. <a href="https://scripps.ucsd.edu/news/new-high-resolution-study-california-coastal-cliff-erosion-released">This recent study</a> inspired my suggestion for spatial interpolation as a future analysis.</p>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">REFERENCES</h3>
 <ol type="1">
