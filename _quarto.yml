@@ -12,6 +12,8 @@ website:
         text: About
       - href: posts.qmd
         text: Blog
+      - href: resume.qmd
+        text: Resume
       
 
 format:

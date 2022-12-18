@@ -4,7 +4,7 @@ image: profile.jpg
 about: 
   template: trestles
   image-shape: round
-  image-width: 15em
+  image-width: 18em
   links:
     - icon: linkedin
       text: LinkedIn
