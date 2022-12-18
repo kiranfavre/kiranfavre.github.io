@@ -1,5 +1,23 @@
 ---
 title: "Kiran Favre"
+image: profile.jpg
+about: 
+  template: trestles
+  image-shape: round
+  image-width: 15em
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/kiran-favre-b4a41b215/
+    - icon: Twitter
+      text: Twitter
+      href: https://twitter.com/kiranfavre
+    - icon: github
+      text: GitHub
+      href: https://github.com/kiranfavre
+    - icon: envelope
+      text: Email
+      href: mailto:kiranfavre@yahoo.com
 ---
 
 I am currently pursuing my Master's of Environmental Data Science at the Bren School for Environmental Science & Management at University of California, Santa Barbara. I recently earned a B.S. in Environmental Sciences from University of California, Santa Cruz.

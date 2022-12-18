@@ -7,13 +7,6 @@
     "text": "I am currently pursuing my Master’s of Environmental Data Science at the Bren School for Environmental Science & Management at University of California, Santa Barbara. I recently earned a B.S. in Environmental Sciences from University of California, Santa Cruz."
   },
   {
-    "objectID": "posts/2022-10-24_Firstblog/index.html",
-    "href": "posts/2022-10-24_Firstblog/index.html",
-    "title": "First Blog Title",
-    "section": "",
-    "text": "Here’s some more text\nHere I’m going to cite my blog post from last year []"
-  },
-  {
     "objectID": "posts/2022-12-08_EDS222_final/index.html",
     "href": "posts/2022-12-08_EDS222_final/index.html",
     "title": "Analysis of California Coastal Erosion",
@@ -60,7 +53,7 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "MEDS\n\n\ntest\n\n\nR\n\n\n\nThis is a description\n\n\n\nKiran Favre\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\nGeospatial\n\n\nCalifornia\n\n\n\nUsing muliple linear regression analysis and USGS Coastal Change data to analyze where coastlines in California are eroding the most.\n\n\n\nKiran Favre\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Analysis of California Coastal Erosion\n\n\n\nR\n\n\nGeospatial\n\n\nCalifornia\n\n\n\nUsing muliple linear regression analysis and USGS Coastal Change data to analyze where coastlines in California are eroding the most.\n\n\n\nKiran Favre\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "resume.html",

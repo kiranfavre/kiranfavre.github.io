@@ -10,7 +10,7 @@ author:
     affiliation-url: https://ucsb-meds.github.io/
 date: 12-09-2022
 citation: 
-  url: https://kiranfavre.github.io/posts/2022-09-12-quarto-blogs/ 
+  url: https://kiranfavre.github.io/posts/2022-12-08_EDS222_final/ 
 categories: [R, Geospatial, California]
 format:
   html:
