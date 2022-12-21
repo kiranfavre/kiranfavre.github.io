@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Kiran Favre"
+  favicon: favicon.png
   navbar:
     left:
       - href: index.qmd
@@ -14,6 +15,7 @@ website:
         text: Blog
       - href: resume.qmd
         text: Resume
+
       
 
 format:
