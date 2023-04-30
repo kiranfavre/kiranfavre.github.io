@@ -13,9 +13,13 @@ website:
         text: About
       - href: posts.qmd
         text: Blog
-      - href: resume.qmd
+      - href: site_resume.pdf
         text: Resume
-
+  page-footer: 
+    left: 
+      - "Copyright 2023, Kiran Favre"
+    
+    
       
 
 format:
