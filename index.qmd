@@ -27,7 +27,7 @@ I'm Kiran, and I am currently a graduate student at the Bren School for Environm
 
 ### Education
 
-<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **Master of Environmental Data Science**, expected 2023 </p>  
+<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **Master's of Environmental Data Science**, expected 2023 </p>  
 <p class="custom-subtitle2">Bren School for Environmental Science & Management, University of California, Santa Barbara</p>
 
 <p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **BS in Environmental Sciences**, 2022 </p>  
