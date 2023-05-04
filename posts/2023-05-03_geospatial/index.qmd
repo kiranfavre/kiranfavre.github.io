@@ -1,6 +1,6 @@
 ---
-title: "Geospatial Blog"
-description: We will use average annual sea surface temperature (SST) from the years 2008 to 2012 to characterize the average sea surface temperature within the region. The data we are working with was originally generated from [NOAA's 5km Daily Global Satellite Sea Surface Temperature Anomaly v3.1](https://coralreefwatch.noaa.gov/product/5km/index_5km_ssta.php).
+title: "Determining Suitable Oyster Habitats in West Coast EEZ's"
+description: I will be using geospatial data to map suitable oyster habitats in Exclusive Economic Zones on the West Coast, and creating a function to find these zones for any species and their suitable range. 
 
 editor: visual
 author:
@@ -8,7 +8,7 @@ author:
     url: https://kiranfavre.github.io
     affiliation: Master of Environmental Data Science
     affiliation-url: https://ucsb-meds.github.io/
-date: 12-09-2022
+date: 05-03-2022
 citation: 
   url: https://kiranfavre.github.io/posts/2023-05-03_geospatial/ 
 categories: [R, Geospatial, California]
@@ -18,26 +18,31 @@ format:
     code-summary: "Show code"
 ---
 
-## SST
+## Background
+This blog post is from my Geospatial Analysis and Remote Sensing course as a part of my master's program at the Bren School for Environmental Science & Management. I will be determining which Exclusive Economic Zones (EEZ's) on the West Coast of the United States are the most suitable for developing marine aquaculture for many species of oysters. Then, I make a function to map any species' suitable habitats within West Coast EEZs by allowing for user inputs of species' suitable habitats based on sea surface temperatures and depth.
 
-We will use average annual sea surface temperature (SST) from the years 2008 to 2012 to characterize the average sea surface temperature within the region. The data we are working with was originally generated from [NOAA's 5km Daily Global Satellite Sea Surface Temperature Anomaly v3.1](https://coralreefwatch.noaa.gov/product/5km/index_5km_ssta.php).
+## Data 
 
-#### Bathymetry
+### Sea Surface Temperature Data
 
-To characterize the depth of the ocean we will use the [General Bathymetric Chart of the Oceans (GEBCO)](https://www.gebco.net/data_and_products/gridded_bathymetry_data/#area).[^3]
+I will use average annual sea surface temperature (SST) from the years 2008 to 2012 to characterize the average sea surface temperature within the region. The data we are working with was originally generated from [NOAA's 5km Daily Global Satellite Sea Surface Temperature Anomaly v3.1](https://coralreefwatch.noaa.gov/product/5km/index_5km_ssta.php).
+
+#### Bathymetry Data
+
+To characterize the depth of the ocean, I will use the [General Bathymetric Chart of the Oceans (GEBCO)](https://www.gebco.net/data_and_products/gridded_bathymetry_data/#area).[^3]
 
 
-#### Exclusive Economic Zones
+#### Exclusive Economic Zones Data
 
 We will be designating maritime boundaries using Exclusive Economic Zones off of the west coast of US from [Marineregions.org](https://www.marineregions.org/eez.php).
 
 
 
-##STEPS
+## Process
 
-1. We need to begin by loading the necessary data listed above and validate the coordinate reference system.
+I will start with loading the necessary data listed above and validate that all the data has the same coordinate reference system.
 
-```{r include=TRUE, warning=FALSE, messages=FALSE}
+```{r include=TRUE, message = FALSE, warning=FALSE}
 library(tidyverse)
 library(terra)
 library(sf)
@@ -55,7 +60,7 @@ library(tmaptools)
 setwd(here())
 ```
 
-```{r include=TRUE, warning=FALSE, messages=FALSE}
+```{r include=TRUE, warning=FALSE, message=FALSE}
 #read in West coast EEZ shape file w terra 
 wc_EEZ_regions <- st_read(here("posts",
                                "2023-05-03_geospatial",
