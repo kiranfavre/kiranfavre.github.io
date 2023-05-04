@@ -2,3 +2,33 @@
 title: "About"
 editor: visual
 ---
+
+::: panel-tabset
+
+## About
+
+<h4>More about me!</h4>
+I am pursuing a Master of Environmental Data Science degree at the University of California, Santa Barbara. I graduated from the University of California, Santa Cruz in 2022 with a Bachelor's degree in Environmental Sciences, where I focused on climate change and oceanography. While there, I was a Santa Cruz Climate Action Program Intern who collected data on potential community responses to coastal erosion. Surveying and collecting data as an intern, doing field work through courses at UCSC, and working with climate models in my undergradauate capstone project inspired my curiosity for data as a tool of scientific communication. Interest in undergraduate  environmental data analysis and climate modeling drove me to seek out the Bren School for Environmental Science & Management to deepen my understanding of the ocean's response to climate change. I want to learn how to use data science as a tool to find solutions to the issues faced by coastal communities and ecosystems in response to climate change. I hopes to use my degree to contribute to sustainable technology and to further my interests in ocean conservation through environmental modeling.
+
+## Hobbies
+
+
+-   Spending time by the ocean
+
+-   Hiking and camping with my pups
+
+-   Music (going to concerts or playing it!)
+
+-   Scuba diving
+
+-   Exploring new restaurants
+
+![](images/IMG_0653.jpg){width="225"}
+![](images/IMG_1110.jpg){width="225"}
+![](images/IMG_5398.jpg){width="225"}
+
+
+
+
+
+:::
