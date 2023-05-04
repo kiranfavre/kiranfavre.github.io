@@ -22,13 +22,30 @@ about:
 
 ### Hi!
 
-I'm Kiran, and I am currently a graduate student at the Bren School for Environmental Science & Management at the University of California, Santa Barbara. I am currently working on a capstone project with a group to create an application that automates our client's data entry workflow and a data visualization application. I am interested in climate change, science communication, and marine conservation. 
-
+I'm Kiran, and I am currently a graduate student at the Bren School for Environmental Science & Management at the University of California, Santa Barbara. I am currently working on a capstone project with a group to create an application that automates our client's data entry workflow and a data visualization application. I am interested in climate change, science communication, and marine conservation.
 
 ### Education
 
-<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **Master's of Environmental Data Science**, expected 2023 </p>  
-<p class="custom-subtitle2">Bren School for Environmental Science & Management, University of California, Santa Barbara</p>
+<p class="custom-subtitle">
 
-<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **BS in Environmental Sciences**, 2022 </p>  
-<p class="custom-subtitle2">University of California, Santa Cruz</p>
+`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **Master's of Environmental Data Science**, expected 2023
+
+</p>
+
+<p class="custom-subtitle2">
+
+Bren School for Environmental Science & Management, University of California, Santa Barbara
+
+</p>
+
+<p class="custom-subtitle">
+
+`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **BS in Environmental Sciences**, 2022
+
+</p>
+
+<p class="custom-subtitle2">
+
+University of California, Santa Cruz
+
+</p>
