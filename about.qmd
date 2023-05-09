@@ -25,10 +25,36 @@ I am pursuing a Master of Environmental Data Science degree at the University of
 
 ![](images/IMG_0653.jpg){width="225"}
 ![](images/IMG_1110.jpg){width="225"}
-![](images/IMG_5398.jpg){width="225"}
+![](images/IMG_5398.jpg){width="225"} 
 
 ## Travel
 
-I love to travel, and have been fortunate to travel to the parts of the world I already have. I look forward to travelling more in my life since my travels so far have given me the opportunity to learn more about different perspectives and cultures. 
+I love to travel, and have been fortunate to have had the opportunity to. I look forward to travelling more in my life since my travels so far have given me the chance to learn more about different perspectives and cultures. Here are the places I have been so far!
+
+```{r, message= FALSE, warning= FALSE, echo= FALSE}
+#load needed libraries
+library(tidyverse)
+library(here)
+library(sf)
+library(leaflet)
+library(readxl)
+
+#read in cities
+cities <- read_excel(here("data", "travel_cities.xlsx"))
+
+#add geometries to cities
+cities <- cities %>% 
+  st_as_sf(coords = c("lon",
+                      "lat"),
+            crs = 4326)
+
+cities %>% 
+  leaflet() %>% 
+  addProviderTiles(providers$Esri.WorldPhysical) %>% 
+  addProviderTiles(providers$Stamen.TonerLabels) %>% 
+  addMarkers(label = cities$city)
+
+
+```
 
 :::
