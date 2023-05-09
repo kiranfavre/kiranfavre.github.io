@@ -8,9 +8,9 @@ author:
     url: https://kiranfavre.github.io
     affiliation: Master of Environmental Data Science
     affiliation-url: https://ucsb-meds.github.io/
-date: 05-03-2023
+date: 12-03-2022
 citation: 
-  url: https://kiranfavre.github.io/posts/2023-05-03_geospatial/ 
+  url: https://kiranfavre.github.io/posts/2023-12-03_geospatial/ 
 categories: [R, Geospatial, California]
 format:
   html:
