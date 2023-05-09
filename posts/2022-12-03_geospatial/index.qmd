@@ -19,9 +19,10 @@ format:
 ---
 
 ## Background
+
 This blog post is from my Geospatial Analysis and Remote Sensing course as a part of my master's program at the Bren School for Environmental Science & Management. I will be determining which Exclusive Economic Zones (EEZ's) on the West Coast of the United States are the most suitable for developing marine aquaculture for many species of oysters. Then, I make a function to map any species' suitable habitats within West Coast EEZs by allowing for user inputs of species' suitable habitats based on sea surface temperatures and depth.
 
-## Data 
+## Data
 
 ### Sea Surface Temperature Data
 
@@ -29,14 +30,11 @@ I will use average annual sea surface temperature (SST) from the years 2008 to 2
 
 #### Bathymetry Data
 
-To characterize the depth of the ocean, I will use the [General Bathymetric Chart of the Oceans (GEBCO)](https://www.gebco.net/data_and_products/gridded_bathymetry_data/#area).[^3]
-
+To characterize the depth of the ocean, I will use the [General Bathymetric Chart of the Oceans (GEBCO)](https://www.gebco.net/data_and_products/gridded_bathymetry_data/#area).\[\^3\]
 
 #### Exclusive Economic Zones Data
 
 We will be designating maritime boundaries using Exclusive Economic Zones off of the west coast of US from [Marineregions.org](https://www.marineregions.org/eez.php).
-
-
 
 ## Process
 
@@ -63,30 +61,30 @@ setwd(here())
 ```{r include=TRUE, warning=FALSE, message=FALSE}
 #read in West coast EEZ shape file w terra 
 wc_EEZ_regions <- st_read(here("posts",
-                               "2023-05-03_geospatial",
+                               "2022-12-03_geospatial",
                                "data",
                                "wc_regions_clean.shp"))
 
 
 #read in SST rasters
 avg_sst_2008 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2008.tif"))
 avg_sst_2009 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2009.tif"))
 avg_sst_2010 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2010.tif"))
 avg_sst_2011 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2011.tif"))
 avg_sst_2012 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2012.tif"))
 
@@ -99,13 +97,14 @@ all_sst <- c(avg_sst_2008,
 
 #read in bathymetry raster
 depth <- rast(here("posts",
-                    "2023-05-03_geospatial",
+                    "2022-12-03_geospatial",
                     "data",
                     "depth.tif"))
 
 ```
 
 Checking if the coordinate reference systems are the same. The sea surface temperature data needs to be reprojected to match the coordinate reference systems of the EEZ and depth data.
+
 ```{r}
 st_crs(wc_EEZ_regions) # crs EPSG:4326
 st_crs(all_sst)  #crs EPSG:9122
@@ -116,9 +115,10 @@ all_sst_reproj <- project(all_sst,
                           wc_EEZ_regions)
 ```
 
-
 ## Process data
+
 Next, I need process the SST and depth data so that they can be combined, I will resample to match the SST data using the nearest neighbor approach since the extents, resolutions, and positions of the depth and SST are different.
+
 ```{r include=TRUE}
 #find the mean SST from 2008-2012
 mean_sst <- mean(all_sst_reproj)
@@ -143,10 +143,10 @@ resolution_test <- c(depth_resampled,
 #they stacked properly, indicating that they both have same resolutions, extent, and crs
 ```
 
-
 #### Find suitable locations
 
 To determine suitable locations for marine aquaculture, I need to look for locations that are suitable in terms of both SST and depth.
+
 ```{r include=TRUE}
 #oyster happy spots
 #sea surface temperature: 11-30&deg;C\
@@ -189,9 +189,10 @@ mult_fun <- function(x, y) {
 oyst_suitable_habitat <- lapp(c(sst_suitable_locs, depth_suitable_locs), mult_fun)
 ```
 
-#### Determining the most suitable EEZ 
+#### Determining the most suitable EEZ
 
 I want to determine the total suitable area within each EEZ so I can rank zones by priority. To do this, I will need to find the total area of suitable locations within each EEZ.
+
 ```{r}
 # making obj of individual cell size of areas that are suitable for oysters so we can find the size of each cell
 grid_cell_size <- cellSize(oyst_suitable_habitat,
@@ -201,7 +202,6 @@ grid_cell_size <- cellSize(oyst_suitable_habitat,
 
 plot(grid_cell_size, main = "Cell Size")
 ```
-
 
 ```{r}
 # rasterize wc shape file to help find total suitable area
@@ -235,7 +235,7 @@ wc_suitable_EEZ <- full_join(wc_EEZ_regions, wc_suitable_area, by = "rgn") |>
 print(wc_suitable_EEZ)
 ```
 
-#### Visualize results 
+#### Visualize results
 
 ```{r}
 #set to interactive mode
@@ -258,7 +258,6 @@ oyst_area_map <- tm_basemap("Stamen.Terrain") +
 oyst_area_map
 ```
 
-
 ```{r}
 #map for percent suitable area by region
 oyst_percentage_map <- tm_basemap("Stamen.Terrain") +
@@ -276,35 +275,36 @@ oyst_percentage_map
 ```
 
 #### Expanding this workflow to other species
+
 ```{r, message= FALSE}
 find_suitable_locs <- function(SST_low, SST_high, depth_low, depth_high, spp_name) {
 
   #read in West coast EEZ shape file w terra 
 wc_EEZ_regions <- st_read(here("posts",
-                               "2023-05-03_geospatial",
+                               "2022-12-03_geospatial",
                                "data",
                                "wc_regions_clean.shp"))
 
 
 #read in SST rasters
 avg_sst_2008 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2008.tif"))
 avg_sst_2009 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2009.tif"))
 avg_sst_2010 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2010.tif"))
 avg_sst_2011 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2011.tif"))
 avg_sst_2012 <- rast(here("posts",
-                          "2023-05-03_geospatial",
+                          "2022-12-03_geospatial",
                           "data",
                           "average_annual_sst_2012.tif"))
 
@@ -317,7 +317,7 @@ all_sst <- c(avg_sst_2008,
 
 #read in bathymetry raster
 depth <- rast(here("posts",
-                    "2023-05-03_geospatial",
+                    "2022-12-03_geospatial",
                     "data",
                     "depth.tif"))
   
@@ -422,11 +422,9 @@ depth <- rast(here("posts",
 }
 ```
 
-I chose the Red Abalone, Haliotis rufescens.
-https://www.sealifebase.ca/summary/Haliotis-rufescens.html
+I chose the Red Abalone, Haliotis rufescens. https://www.sealifebase.ca/summary/Haliotis-rufescens.html
+
 ```{r}
 abalone_habitats <- find_suitable_locs(8, 18, 0, 24, "Red Abalone")
 abalone_habitats
 ```
-
-
