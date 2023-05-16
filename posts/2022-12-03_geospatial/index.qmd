@@ -58,7 +58,7 @@ library(tmaptools)
 setwd(here())
 ```
 
-```{r include=TRUE, warning=FALSE, message=FALSE}
+```{r include= FALSE, warning= FALSE, message= FALSE, results='hide', echo = FALSE}
 #read in West coast EEZ shape file w terra 
 wc_EEZ_regions <- st_read(here("posts",
                                "2022-12-03_geospatial",
