@@ -22,13 +22,13 @@ about:
 
 ### Hi!
 
-I'm Kiran, and I am currently a graduate student at the Bren School for Environmental Science & Management at the University of California, Santa Barbara. I am currently working on a capstone project with a group to create an application that automates our client's data entry workflow and a data visualization application. I am interested in climate change, science communication, and marine conservation.
+I'm Kiran, and I a recent graduate from the Bren School for Environmental Science & Management at the University of California, Santa Barbara. I earned my Master of Environmental Data Science, and worked on a capstone project with a group to create an application that automates our client's data entry workflow, improving their data management system, and a developed a data visualization application. I am interested in climate change, science communication, and green technology.
 
 ### Education
 
 <p class="custom-subtitle">
 
-`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **Master's of Environmental Data Science**, expected 2023
+`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **Master's of Environmental Data Science**, 2023
 
 </p>
 
