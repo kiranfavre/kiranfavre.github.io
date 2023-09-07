@@ -17,28 +17,24 @@ format:
     code-fold: false
     code-summary: "Show code"
 ---
-#figure code folding
 
 **Introduction**
 
 I love listening to all types of music, and used machine learning models in R to understand my taste a little bit better and compare my friend and my music taste!
 
-I began by requesting data from the Spotify API and using the data on my liked songs to build a model that is a binary classifier. To do so, I will be using three  Machine Learning algorithms: 
+I began by requesting data from the Spotify API and using the data on my liked songs to build a model that is a binary classifier. To do so, I will be using three Machine Learning algorithms:
 
-- K-Nearest Neighbor 
+-   K-Nearest Neighbor
 
-- Decision Tree Model
+-   Decision Tree Model
 
-- Random Forest Model
+-   Random Forest Model
 
------------From Mateo OH--------------- 
-And test on the test data. For each model, we went through the general ML process. Here is this data we have to spend, and you don't need to worry about the test data being reused/leakage. Leakage can occur in each model, but set up process to ensure there is no leakage. This is why we break up into test, split, and train. With leakage, we will get a less accurate prediction since the data was used to create the model. We started with splitting, then pre-processing (using step function and the recipe) (for all models!). Then for each model we do this separately: set up specification of model w hyper parameters that you tune (finding best version of model), we use the cv folds to do this (break data into 10 sections, and 1 is test data and rest are training. then next, next). R tries a bunch of combos of the hyper parameters. Then the model creates predictions of 0 and 1. Then we fit the model we found onto the test data we left at beginning. For analyzing at the end, could look at confusion matrix of different errors made , could look at distribution of the predictions. Could look at the probability of predictions higher or lower than 50%. -----------
+-----------From Mateo OH--------------- And test on the test data. For each model, we went through the general ML process. Here is this data we have to spend, and you don't need to worry about the test data being reused/leakage. Leakage can occur in each model, but set up process to ensure there is no leakage. This is why we break up into test, split, and train. With leakage, we will get a less accurate prediction since the data was used to create the model. We started with splitting, then pre-processing (using step function and the recipe) (for all models!). Then for each model we do this separately: set up specification of model w hyper parameters that you tune (finding best version of model), we use the cv folds to do this (break data into 10 sections, and 1 is test data and rest are training. then next, next). R tries a bunch of combos of the hyper parameters. Then the model creates predictions of 0 and 1. Then we fit the model we found onto the test data we left at beginning. For analyzing at the end, could look at confusion matrix of different errors made , could look at distribution of the predictions. Could look at the probability of predictions higher or lower than 50%. -----------
 
 This week's lab is a musical lab. You'll be requesting data from the Spotify API and using it to build k-nearest neighbor and decision tree models.
 
 Erica's blog: https://ericamarie9016.github.io/posts/2023-02-22-spotify/
-
-
 
 ```{r, message = FALSE, warning= FALSE, echo = FALSE}
 library(spotifyr) #Spotify API interaction
@@ -58,10 +54,9 @@ library(tune)
 
 **Accessing Spotify API**
 
-To begin gathering data from the Spotify API, I have to create and access a token containing the client ID and client secret. To do so, I began by navigating to [Spotify for Developers](https://developer.spotify.com/) and created an application. More information on accessing the Spotify API  can be found in [the documentation](https://developer.spotify.com/documentation/web-api).
+To begin gathering data from the Spotify API, I have to create and access a token containing the client ID and client secret. To do so, I began by navigating to [Spotify for Developers](https://developer.spotify.com/) and created an application. More information on accessing the Spotify API can be found in [the documentation](https://developer.spotify.com/documentation/web-api).
 
-
-Here, I am setting them as system values so I don't have to provide the client ID & secret each time the API is used, and combining them to create an access token. 
+Here, I am setting them as system values so I don't have to provide the client ID & secret each time the API is used, and combining them to create an access token.
 
 ```{r, eval= FALSE}
 Sys.setenv(SPOTIFY_CLIENT_ID = 'your_token')
@@ -73,16 +68,16 @@ access_token <- get_spotify_access_token(
 )
 ```
 
-
 **Data Preparation**
-  
-The function 'get_my_saved_tracks()' from the *spotifyr* package will request all my liked tracks on Spotify. However, when called, the Spotify API will only return a dataframe with 50 tracks at a time. 
+
+The function 'get_my_saved_tracks()' from the *spotifyr* package will request all my liked tracks on Spotify. However, when called, the Spotify API will only return a dataframe with 50 tracks at a time.
 
 ```{r, eval= FALSE}
 saved_tracks <- get_my_saved_tracks() #function from the spotifyr package
 ```
 
-Since I want to analyze all my likes, I will have to make many requests. Instead of doing this manually, I'll use a function to combine all the requests into one call. 
+Since I want to analyze all my likes, I will have to make many requests. Instead of doing this manually, I'll use a function to combine all the requests into one call.
+
 ```{r, eval= FALSE}
 #writing a function to combine my requests into one call since this function only returns up to 50 tracks at a time when called
 get_saved_tracks <- function(limit = 50,
@@ -102,7 +97,7 @@ get_saved_tracks <- function(limit = 50,
 my_tracks <- get_saved_tracks(authorization = access_token)
 ```
 
-Now that I have all my liked songs, I am going to request more information from the Spotify API to understand my taste better. To do so, I will give the API a list of my song IDs using the function *get_track_audio_features*. This will return a dataframe of audio features, including the tracks and their attributes. 
+Now that I have all my liked songs, I am going to request more information from the Spotify API to understand my taste better. To do so, I will give the API a list of my song IDs using the function *get_track_audio_features*. This will return a dataframe of audio features, including the tracks and their attributes.
 
 ```{r, eval = FALSE}
 my_audio_features <- data.frame()   # create base empty data frame
@@ -122,7 +117,6 @@ for(i in seq(from = 1, to = 350, by = 100)) { # loop through all songs
 
 my_audio_features <- drop_na(my_audio_features)
 ```
-
 
 ```{r, eval = FALSE}
 # add songs_data$track.name
@@ -154,7 +148,8 @@ kiran_erica_audio <- rbind(kiran_audio, erica_audio)
 write_csv(combined_audio, "combined_audio.csv")
 ```
 
-Here I loaded in the downloaded dataframe, and appended a column called 'listener_id' so I know whose tracks are whose. 
+Here I loaded in the downloaded dataframe, and appended a column called 'listener_id' so I know whose tracks are whose.
+
 ```{r output = FALSE}
 #combining our data 
 combined_audio <- read_csv(here("posts",
@@ -167,7 +162,8 @@ combined_audio <- read_csv(here("posts",
 
 Now that I have prepared the data with the steps above, I can start exploring some aspects of my data, my friend's, and compare them!
 
-First, I wanted to look at all the variables that the Spotify API includes when accessing audio features. 
+First, I wanted to look at all the variables that the Spotify API includes when accessing audio features.
+
 ```{r}
 audio_features <- combined_audio %>% 
   colnames() %>% 
@@ -217,9 +213,8 @@ hexplot_4 <- ggplot(data = combined_audio,
 ggarrange(hexplot_1, hexplot_2, hexplot_3, hexplot_4)
 ```
 
-
-
 Now, I'll compare who has more popular songs!
+
 ```{r}
 combined_audio %>%
   arrange(desc(track.popularity)) %>% 
@@ -232,7 +227,7 @@ combined_audio %>%
   kable()
 ```
 
-Looks like I have a the most popular songs in this dataset from this little snippet. Now I'll visualize the data to get a better picture. 
+Looks like I have a the most popular songs in this dataset from this little snippet. Now I'll visualize the data to get a better picture.
 
 ```{r}
 #visualize the data!
@@ -248,10 +243,11 @@ popularity_plot
 ```
 
 **Modeling**
-  
-As I mentioned earlier, I will create two models, a K-Nearest Neighbor model and a decision tree model. Now that I have the data prepared and I understand it better, I can make these models predict whether a track belongs to me or Erica's Spotify list. 
 
-I'm starting by splitting the data into three sets: testing, splitting, and training data sets. 
+As I mentioned earlier, I will create two models, a K-Nearest Neighbor model and a decision tree model. Now that I have the data prepared and I understand it better, I can make these models predict whether a track belongs to me or Erica's Spotify list.
+
+I'm starting by splitting the data into three sets: testing, splitting, and training data sets.
+
 ```{r}
 #remove track id  & index 
 combined_audio <- combined_audio %>% 
@@ -268,15 +264,13 @@ audio_train <- training(audio_split)
 
 Now, I will run through the three algorithms mentioned above. With each model, I will go through the following steps:
 
-1) Preprocessing: Using a step function and recipe on the training data. 
+1)  Preprocessing: Using a step function and recipe on the training data.
 
-2) Set model specification: Tune specification of model with hyper parameters to finding best version of model. I will use cross validation folds to do this, which basically breaks the data into 10 sections, leaving 1 section as test data and rest are training. Then R continues thing process through all the broken up sections of data to determine the best hyper-parameters. The model will create predictions of 0 or 1 based on this tuning step. 
+2)  Set model specification: Tune specification of model with hyper parameters to finding best version of model. I will use cross validation folds to do this, which basically breaks the data into 10 sections, leaving 1 section as test data and rest are training. Then R continues thing process through all the broken up sections of data to determine the best hyper-parameters. The model will create predictions of 0 or 1 based on this tuning step.
 
-3) Model fitting: Then we fit the model with the best hyper-parameters onto the test data we split at beginning.
-
+3)  Model fitting: Then we fit the model with the best hyper-parameters onto the test data we split at beginning.
 
 **MODEL #1: K-Nearest Neighbors**
-
 
 ```{r}
 #preprocessing
@@ -328,7 +322,6 @@ knn_spec_tuned  <-
 knn_spec_tuned
 ```
 
-
 ```{r}
 # Define a new workflow
 wf_knn_tuned <- workflow() |> 
@@ -370,8 +363,6 @@ knn_metrics <- final_knn_fit |>
 knn_metrics
 ```
 
-
-  
 **MODEL #2: DECISION TREE**
 
 ```{r}
@@ -439,12 +430,10 @@ dec_tree_metrics <- final_dec_tree_fit %>%
 dec_tree_metrics
 ```
 
-Then validate and compare the performance of the models I  made
+Then validate and compare the performance of the models I made
 
+**MODEL #3: Random Forest**
 
-   
-  
-**MODEL #3: Random Forest **
 ```{r}
 # Define validating set 
 validation_set <- validation_split(audio_train, 
@@ -522,7 +511,6 @@ last_rand_forest_fit %>%
   ggtitle("Order of Variable Importance in Random Forest Model") +
   theme_minimal()
 ```
-
 
 ```{r Plotting and Charting Accuracy}
 # nearest neighbors metrics
