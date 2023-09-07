@@ -30,12 +30,6 @@ I began by requesting data from the Spotify API and using the data on my liked s
 
 -   Random Forest Model
 
------------From Mateo OH--------------- And test on the test data. For each model, we went through the general ML process. Here is this data we have to spend, and you don't need to worry about the test data being reused/leakage. Leakage can occur in each model, but set up process to ensure there is no leakage. This is why we break up into test, split, and train. With leakage, we will get a less accurate prediction since the data was used to create the model. We started with splitting, then pre-processing (using step function and the recipe) (for all models!). Then for each model we do this separately: set up specification of model w hyper parameters that you tune (finding best version of model), we use the cv folds to do this (break data into 10 sections, and 1 is test data and rest are training. then next, next). R tries a bunch of combos of the hyper parameters. Then the model creates predictions of 0 and 1. Then we fit the model we found onto the test data we left at beginning. For analyzing at the end, could look at confusion matrix of different errors made , could look at distribution of the predictions. Could look at the probability of predictions higher or lower than 50%. -----------
-
-This week's lab is a musical lab. You'll be requesting data from the Spotify API and using it to build k-nearest neighbor and decision tree models.
-
-Erica's blog: https://ericamarie9016.github.io/posts/2023-02-22-spotify/
-
 ```{r, message = FALSE, warning= FALSE, echo = FALSE}
 library(spotifyr) #Spotify API interaction
 library(tidyverse) #Transform & visualize data
@@ -153,7 +147,7 @@ Here I loaded in the downloaded dataframe, and appended a column called 'listene
 ```{r output = FALSE}
 #combining our data 
 combined_audio <- read_csv(here("posts",
-                                "2023-08-31_spotify",
+                                "2023-09-07_spotify",
                                 "combined_audio.csv")) %>%  
     mutate(listener_id = as.factor(listener_id))
 ```
