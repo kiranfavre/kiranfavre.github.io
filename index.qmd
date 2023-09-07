@@ -28,7 +28,7 @@ I'm Kiran, and I a recent graduate from the Bren School for Environmental Scienc
 
 <p class="custom-subtitle">
 
-`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **Master's of Environmental Data Science**, 2023
+**Master's of Environmental Data Science**, 2023
 
 </p>
 
@@ -40,7 +40,7 @@ Bren School for Environmental Science & Management, University of California, Sa
 
 <p class="custom-subtitle">
 
-`r fontawesome::fa("graduation-cap", fill = "#124559", a11y = "sem")` **BS in Environmental Sciences**, 2022
+**BS in Environmental Sciences**, 2022
 
 </p>
 
