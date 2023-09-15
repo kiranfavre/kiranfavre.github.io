@@ -16,6 +16,7 @@ format:
   html:
     code-fold: true
     code-summary: "Show code"
+image: ocean.jpg
 ---
 
 ## Background
@@ -131,9 +132,9 @@ bottle_wf <- workflow() %>%
 
 ## Fit Model to Training Data and Make Predictions
 
-To understand how well the model we made is performing, we will begin by fitting the model to the training data. This classifies our model as a supervised learner, since we are feeding the model with labeled data to train it. 
+To understand how well the model we made is performing, we will begin by fitting the model to the training data. This classifies our model as a supervised learner, since we are feeding the model with labeled data to train it.
 
-We will then use this model to make predictions on the validation data to see how 'well' the model has done, i.e. how accurately is this model predicting values of dissolved inorganic carbon. To evaluate model performance, we will use the Root Mean Square Error (RMSE) metric. The Root Mean Square Error measures the average difference between the actual values and the model's predicted values. For our model, a RMSE of 5.64 indicates that the difference between the actual values and predicted values is quite high. This means our model is not performing well at its task of accurately predicted dissolved inorganic carbon concentrations. 
+We will then use this model to make predictions on the validation data to see how 'well' the model has done, i.e. how accurately is this model predicting values of dissolved inorganic carbon. To evaluate model performance, we will use the Root Mean Square Error (RMSE) metric. The Root Mean Square Error measures the average difference between the actual values and the model's predicted values. For our model, a RMSE of 5.64 indicates that the difference between the actual values and predicted values is quite high. This means our model is not performing well at its task of accurately predicted dissolved inorganic carbon concentrations.
 
 ```{r}
 #creating and training a model on the training data
@@ -161,7 +162,8 @@ bottle_metrics
 
 ## Test Model
 
-Here we are predicting the final values for dissolved inorganic carbon and binding them to the ID's of each measuring station. Our professor provided us the actual values for dissolved inorganic carbon on Kaggle to culminate the competition. 
+Here we are predicting the final values for dissolved inorganic carbon and binding them to the ID's of each measuring station. Our professor provided us the actual values for dissolved inorganic carbon on Kaggle to culminate the competition.
+
 ```{r}
 ## Outputting predictions for our testing data
 test_data_predictions <- fit_bottle %>% 

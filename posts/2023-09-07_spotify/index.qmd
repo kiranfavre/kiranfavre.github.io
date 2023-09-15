@@ -16,7 +16,7 @@ format:
   html:
     code-fold: false
     code-summary: "Show code"
-image: music_pic.jpg
+image: concert.jpg
 ---
 
 **Introduction**

@@ -6,3 +6,7 @@ listing:
   sort: "date desc"
   categories: true
 ---
+
+This blog is a collection of data science projects I completed during my time in my graduate program and after. This page is a work in progress, and will develop as I continue to complete projects!
+
+*All pictures used on this page are taken by me.*
