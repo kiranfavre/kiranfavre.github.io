@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Kiran Favre">
+<meta name="dcterms.date" content="2022-12-03">
+<meta name="description" content="An evaluation of air pollution in India, in the scope of ethic &amp; bias in Environmental Data Science.">
+
+<title>Kiran Favre - An Evaluation of Air Pollution In India</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Kiran Favre</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume.pdf" rel="" target="">
+ <span class="menu-text">Resume</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">An Evaluation of Air Pollution In India</h1>
+                  <div>
+        <div class="description">
+          An evaluation of air pollution in India, in the scope of ethic &amp; bias in Environmental Data Science.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Ethics</div>
+                <div class="quarto-category">Air Pollution</div>
+                <div class="quarto-category">Data Access</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author"><a href="https://kiranfavre.github.io">Kiran Favre</a> </p>
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              <a href="https://ucsb-meds.github.io/">
+              Master of Environmental Data Science
+              </a>
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 3, 2022</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
+  <li><a href="#air-quality-in-india" id="toc-air-quality-in-india" class="nav-link" data-scroll-target="#air-quality-in-india">Air Quality in India</a></li>
+  <li><a href="#data-gathering-and-access" id="toc-data-gathering-and-access" class="nav-link" data-scroll-target="#data-gathering-and-access">Data Gathering and Access</a></li>
+  <li><a href="#current-efforts" id="toc-current-efforts" class="nav-link" data-scroll-target="#current-efforts">Current Efforts</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>As an Indian-America, I spent my childhood going to India every year to visit family. I had noticed the air quality seem to get worse over the years. For the completion of my Ethics &amp; Bias in Environmental Data Science course, I decided to investigate potential areas of bias in data collected and presented on air pollution in India.</p>
+</section>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>In 2021, the air quality in India exceeded the World Health Organization’s (WHO) health standard by over ten times. Access to clean air was <a href="https://news.un.org/en/story/2022/07/1123482">recognized as a human right in July 2022</a>, and many countries, including India, had adopted legislation to regulate air pollution long before this. So why is India’s air quality still as poor as it is? Is it due to reasons out of human control, such as climate effects trapping in air pollution, or is it a discrepancy in efforts to mitigate the problem (or both)? I will be exploring the conditions that perpetuate poor air quality in this region, data collection/access, and improvement efforts through an ethics and bias lens. This evaluation can lend itself to support the sustainable growth of the population and industrialization in this area.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="india_gate.webp" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">India Gate, sourced from <a href="https://www.theguardian.com/environment/2020/apr/11/positively-alpine-disbelief-air-pollution-falls-lockdown-coronavirus">The Guardian</a></figcaption>
+</figure>
+</div>
+<p>Air quality is measured by the concentration of particulate matter suspended in the air. A commonly used metric to report this is PM2.5, which is used to calculate the Air Quality Index. India’s relatively poor air quality can be attributed to poor farming practices, <a href="https://coal.nic.in/en/major-statistics/coal-indian-energy-choice#:~:text=%E0%A4%95%E0%A5%8B%E0%A4%AF%E0%A4%B2%E0%A4%BE%20%E0%A4%AE%E0%A4%82%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%B2%E0%A4%AF%20Ministry%20of%20Coal&amp;text=Coal%20is%20the%20most%20important,of%20the%20country%27s%20energy%20need">reliance on coal</a>, high population density, and lack of policy fit for the current demand. Consequences of bad air quality include lung disease, increased risk of other diseases or death, and the occasional order to stay home. <a href="https://www.statista.com/statistics/935666/india-average-annual-deaths-from-air-pollution/">One quarter</a> of <a href="https://www.stateofglobalair.org/health/global#:~:text=Millions%20of%20Deaths,-Air%20pollution%20is&amp;text=Air%20pollution%20accounts%20for%20more,7.49%20million">all deaths in 2019 due to air pollution</a>%20worldwide%20in%202019.) were in India, reflecting the disproportionate amount of air pollution in India compared to other regions.</p>
+</section>
+<section id="air-quality-in-india" class="level2">
+<h2 class="anchored" data-anchor-id="air-quality-in-india">Air Quality in India</h2>
+<p>There are <a href="https://blog.ipleaders.in/clean-air-related-laws-in-india/#:~:text=The%20two%20main%20laws%20that,provisions%20under%20these%20two%20acts.">two legislations</a> regarding air quality in India, the Air (Prevention and Control of Pollution) Act of 1981, amended in 1987, and the Environmental Protection Act of 1986. Both of these are aimed at defining and attempting to reduce air pollution in the overarching goal of protecting the environment. These legislations, while well intentioned, are out of date and do not reflect the current levels of air pollution that the government of India could make a more serious effort of reducing. Lack of enforcement and stalemates between the state and federal government has allowed for practices such a burning coal and old crop fields that contributes greatly to the air pollution in India.</p>
+<p>The latter has been a topic of tension of India in recent years as air quality has declined more year after year. India is one of the <a href="https://www.trade.gov/country-commercial-guides/india-food-and-agriculture-value-chain">largest global agricultural producers</a>, so emissions from this sector are inevitable. However, the amount of emissions being released from agricultural practices could be reduced greatly. <a href="https://www.nytimes.com/2022/11/04/world/asia/india-air-pollution-sickness.html#:~:text=Is%20Dreadfully%20Bad.-,Again.,traffic%20restrictions%20and%20political%20infighting.">Every fall</a>, farmers burn leftover crop residue to make space for the incoming crop season which leads to worse air quality from October to December. There has not traditionally been much government oversight over this process, but in recent years there have been more efforts to reduce emissions. These efforts from the boards that enforce the legislations mentioned above have relatively new programs, such as the National Clean Air Program, to provide farmers with new equipment to sustainably remove their crops rather than burn them. Since there is not a lot of updated infrastructure to support these types of programs, it may take years to make a difference in agricultural emissions. In the future, policy will need to follow through with the best interest of the public over profit to slowly increase air quality in response to its current state, not its state when these programs were founded.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="agriculture.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Agriculture in India, sourced from <a href="https://foodtank.com/news/2019/05/dr-bronners-helps-bring-better-opportunities-to-farmers-in-india/">Foodtank</a></figcaption>
+</figure>
+</div>
+</section>
+<section id="data-gathering-and-access" class="level2">
+<h2 class="anchored" data-anchor-id="data-gathering-and-access">Data Gathering and Access</h2>
+<p>Without a full grasp of the problem at hand proper adjustments to current policy will be difficult to make. Using air quality data can help decision makers determine sources of air pollution. There are two federal air quality monitor types in India, both regulated by the the Central Pollution Control Board (CPCB). The first being of industrial emissions began in 2104 and is conducted through the Online Continuous Emissions/Effluents Monitoring Systems (OCEMS). As of 2021, there are 3,700 monitors across industrial regions around India. A concern with this data is that the industries being monitored are the <a href="https://www.orfonline.org/research/tackling-industrial-pollution-in-india-where-is-the-data/">ones commissioning and installing these monitors</a>. This means there is likely missing data and underreported emissions, and less pressure on the same industries that are responsible for air pollution to reduce their emissions.</p>
+<p>The second monitoring system in India is the Continuous Ambient Air Quality Monitoring Systems (CAAQMS) which inform the official AQI measurements for the country. There are 209 of these monitors. There is also much more monitoring of cities and industrial areas. This presents a divide in available data and a potential issue when creating projections and necessary efforts to mitigate air pollution. This monitoring system is not effective at representing the population, as in 2017 approximately <a href="https://www.statista.com/statistics/621507/rural-and-urban-population-india/">66% of the population lived in rural areas</a> while these monitors are placed in industrial areas. Misrepresentation in data often leads to misrepresentation in government response, and in this case this could lead to less attention to reducing air pollution in rural regions since less is known about their conditions.</p>
+<p>Public data access is an important part of creating diverse solutions to problems at this scale. On IQair.com, all the contributors of air quality data are listed, and 24 out of the 35 sources are listed as anonymous. This provides a data access issue, in that there is not full transparency in which groups are collecting air quality data and where to view it. The other eleven sources are government, corporate, and individual bodies. Not all of these contributors have access portals to view the data they collect. In addition to this, CAAQMS data regarding industrial emissions and pollution are not available to the public. This is where data justice comes into play. Is this lack of public access to data only one part in a larger dysfunctional system? An improvement in public access to data could be in the best interest of the public, allowing more than only the government to employ solutions to poor air quality.</p>
+</section>
+<section id="current-efforts" class="level2">
+<h2 class="anchored" data-anchor-id="current-efforts">Current Efforts</h2>
+<p><a href="https://www.businessinsider.in/india/news/government-to-employ-drones-ai-to-check-air-quality-and-fight-pollution/articleshow/95443802.cms">Artificial intelligence projects</a> have been approved to collect data across India on air quality. These projects will mainly monitor emissions from vehicles and levels of PM2.5 to help inform politicians in decision making. This artificial intelligence is aimed to help determine which areas may need more help than others, and could be used for accountability if the data is open access. These monitoring techniques can be useful to help regulate emissions if the information is used as intended. Artificial intelligence can be a helpful tool, but an invasive one. As seen in Coded Bias, artificial intelligence is not a silver bullet for the issues mentioned above with data quality and access. Biases of the developers of artificial intelligence often make it into their models, so this should be kept in mind when proceeding with the use of artificial intelligence.</p>
+<p>Along with artificial intelligence, there are other sectors working to improve air quality in India. <a href="https://www.nature.org/en-us/magazine/magazine-articles/india-agriculture/">The Nature Conservancy</a> (TNC) in India is working with farmers to use new technologies rather than burn their old crops. However, being able to give up current methods for a more expensive alternative is not an option, or priority, for every farmer. This is where policy lacks and where groups like TNC come into play. Many of the current policies do not have the funding to provide farmers with new, more sustainable equipment, so farmers are left with only guidance on how they should change their practices, but no support to do so. One area of improvement could be the collaboration between groups like TNC and the government to optimize these solutions at the greatest scale possible. This type of collaboration could lay a blueprint for a future of sustainable farming practices.</p>
+<p>With a growing population and outdated policies, India has an air quality issue on their hands. As a country, some efforts have been made to address this problem, but there is room for improvement via collaboration, accountability, and innovation. How decisions are made and how data is accessed and distributed must change if air quality is going to improve in this region. There is opportunity for improvement in these areas: artificial intelligence can be used to help improve the understanding of air quality conditions, but collaboration between policy makers, farmers, scientists, and civilians will produce better results than solely relying on efforts by the TNC or artificial intelligence.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Ajay Thakur, et al.&nbsp;“Clean Air Related Laws in India.” IPleaders, 21 Feb.&nbsp;2017, https://blog.ipleaders.in/clean-air-related-laws-in-india/#:~:text=The%20two%20main%20laws%20that,provisions%20under%20these%20two%20acts.</li>
+<li>Bhowmick, Nilanjana. “The Burning Problem.” The Nature Conservancy, 4 Nov.&nbsp;2022, https://www.nature.org/en-us/magazine/magazine-articles/india-agriculture/.</li>
+<li>“Central Pollution Control Board.” CPCB, https://cpcb.nic.in/about-namp/.</li>
+<li>“Government to Employ Drones, AI to Check Air Quality and Fight Pollution.” Business Insider, 11 Nov.&nbsp;2022, https://www.businessinsider.in/india/news/government-to-employ-drones-ai-to-check-air-quality-and-fight-pollution/articleshow/95443802.cms.</li>
+<li>“India Air Quality Index (AQI) and Air Pollution Information.” IQAir, https://www.iqair.com/us/india.</li>
+<li>“India - Food and Agriculture Value Chain.” International Trade Administration | Trade.gov, https://www.trade.gov/country-commercial-guides/india-food-and-agriculture-value-chain.</li>
+<li>Kanwal, Sanyukta. “India - Population by Region 2017-2022.” Statista, 16 Oct.&nbsp;2020, https://www.statista.com/statistics/1012239/india-population-by-region/.</li>
+<li>“Ministry of Coal, Goi.” Ministry of Coal, GOI, https://coal.nic.in/en/major-statistics/coal-indian-energy-choice#:~:text=%E0%A4%95%E0%A5%8B%E0%A4%AF%E0%A4%B2%E0%A4%BE%20%E0%A4%AE%E0%A4%82%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%B2%E0%A4%AF%20Ministry%20of%20Coal&amp;text=Coal%20is%20the%20most%20important,of%20the%20country%27s%20energy%20need.</li>
+<li>“State of Global Air.” Global Health Impacts of Air Pollution | State of Global Air, https://www.stateofglobalair.org/health/global#:~:text=Millions%20of%20Deaths,-Air%20pollution%20is&amp;text=Air%20pollution%20accounts%20for%20more,7.49%20million)%20worldwide%20in%202019.</li>
+<li>Sutaria, Chetan Bhattacharji and Ronak. “Tackling Industrial Pollution in India: Where Is the Data?” ORF, 8 Feb.&nbsp;2021, https://www.orfonline.org/research/tackling-industrial-pollution-in-india-where-is-the-data/.</li>
+<li>Tiseo, Ian, and Jun 17. “India: Average Annual Deaths from Air Pollution 2019.” Statista, 17 June 2022, https://www.statista.com/statistics/935666/india-average-annual-deaths-from-air-pollution/.</li>
+<li>“UN General Assembly Declares Access to Clean and Healthy Environment a Universal Human Right | UN News.” United Nations, United Nations, https://news.un.org/en/story/2022/07/1123482.</li>
+<li>Yasir, Sameer, and Mike Ives. “Air Quality in India’s Capital Is Dreadfully Bad. Again.” The New York Times, The New York Times, 4 Nov.&nbsp;2022, https://www.nytimes.com/2022/11/04/world/asia/india-air-pollution-sickness.html#:~:text=Is%20Dreadfully%20Bad.-,Again.,traffic%20restrictions%20and%20political%20infighting.</li>
+</ol>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{favre2022,
+  author = {Favre, Kiran},
+  title = {An {Evaluation} of {Air} {Pollution} {In} {India}},
+  date = {2022-12-03},
+  url = {https://kiranfavre.github.io/posts/2023-03-15-03_ethics/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-favre2022" class="csl-entry quarto-appendix-citeas" role="listitem">
+Favre, Kiran. 2022. <span>“An Evaluation of Air Pollution In
+India.”</span> December 3, 2022. <a href="https://kiranfavre.github.io/posts/2023-03-15-03_ethics/">https://kiranfavre.github.io/posts/2023-03-15-03_ethics/</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2023, Kiran Favre
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
