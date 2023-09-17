@@ -8,7 +8,7 @@ author:
     url: https://kiranfavre.github.io
     affiliation: Master of Environmental Data Science
     affiliation-url: https://ucsb-meds.github.io/
-date: 12-03-2022
+date: 03-15-2023
 citation: 
   url: https://kiranfavre.github.io/posts/2023-03-15-03_ethics/ 
 categories: [Ethics, Air Pollution, Data Access]
