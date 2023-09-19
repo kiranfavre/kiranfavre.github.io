@@ -304,7 +304,7 @@ impacted_hist <- ggplot(joined_median_income_census) +
 impacted_hist
 ```
 
-![Figure 6. Distribution of income in impacted  tracts](6_hist1.png)
+![Figure 6. Distribution of income in impacted tracts](6_hist1.png)
 
 ```{r, warning = FALSE, message = FALSE, eval= FALSE}
 #need to take out geom for both median income census data and blackout datato find tracts not affected
@@ -333,7 +333,7 @@ non_impacted_hist
 
 ```
 
-![Figure 7. Distribution of income in non-impacted  tracts](7_hist2.png)
+![Figure 7. Distribution of income in non-impacted tracts](7_hist2.png)
 
 ```{r, warning = FALSE, message = FALSE, eval= FALSE}
 library(gridExtra)

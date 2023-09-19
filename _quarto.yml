@@ -12,7 +12,7 @@ website:
       - href: about.qmd
         text: About
       - href: posts.qmd
-        text: Blog
+        text: Portfolio
       - href: resume.pdf
         text: Resume
   page-footer: 
