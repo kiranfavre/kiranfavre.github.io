@@ -26,7 +26,7 @@ I am interested in the number of deaths from lung diseases in the UK over time, 
 
 I will be using the `mdeaths` dataset that is included in `R`. This contains a time series of monthly deaths from bronchitis, emphysema and asthma in the UK between 1974 and 1979 for males.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 # Load all the packages needed here
 library(tidyverse)
 library(readr)
