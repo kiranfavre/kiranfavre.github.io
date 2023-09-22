@@ -14,7 +14,7 @@ citation:
 categories: [R, Geospatial, California]
 format:
   html:
-    code-fold: true
+    code-fold: false
     code-summary: "Show code"
 image: oyster.jpg
 ---
@@ -37,11 +37,11 @@ To characterize the depth of the ocean, I will use the [General Bathymetric Char
 
 We will be designating maritime boundaries using Exclusive Economic Zones off of the west coast of US from [Marineregions.org](https://www.marineregions.org/eez.php).
 
-## Process
+## Analysis
 
 I will start with loading the necessary data listed above and validate that all the data has the same coordinate reference system.
 
-```{r include=TRUE, message = FALSE, warning=FALSE}
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
 library(tidyverse)
 library(terra)
 library(sf)
@@ -59,7 +59,7 @@ library(tmaptools)
 setwd(here())
 ```
 
-```{r include= FALSE, warning= FALSE, message= FALSE, results='hide', echo = FALSE}
+```{r, warning= FALSE, message= FALSE, results = 'hide'}
 #read in West coast EEZ shape file w terra 
 wc_EEZ_regions <- st_read(here("posts",
                                "2022-12-03_geospatial",
@@ -106,7 +106,7 @@ depth <- rast(here("posts",
 
 Checking if the coordinate reference systems are the same. The sea surface temperature data needs to be reprojected to match the coordinate reference systems of the EEZ and depth data.
 
-```{r}
+```{r, warning = FALSE}
 st_crs(wc_EEZ_regions) # crs EPSG:4326
 st_crs(all_sst)  #crs EPSG:9122
 st_crs(depth)  #crs EPSG 4326

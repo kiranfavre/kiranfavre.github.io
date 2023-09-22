@@ -32,7 +32,7 @@ The data I will be using is a data set of daily forest fire area burned in the n
 
 To begin to understand this relationship, I will make a scatter plot showing area burned as it relates to temperature to determine the general relationship.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(tidyverse)
 library(readr)
 library(gt)

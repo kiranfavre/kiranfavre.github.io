@@ -136,7 +136,7 @@ To understand how well the model we made is performing, we will begin by fitting
 
 We will then use this model to make predictions on the validation data to see how 'well' the model has done, i.e. how accurately is this model predicting values of dissolved inorganic carbon. To evaluate model performance, we will use the Root Mean Square Error (RMSE) metric. The Root Mean Square Error measures the average difference between the actual values and the model's predicted values. For our model, a RMSE of 5.64 indicates that the difference between the actual values and predicted values is quite high. This means our model is not performing well at its task of accurately predicted dissolved inorganic carbon concentrations.
 
-```{r}
+```{r, warning = FALSE}
 #creating and training a model on the training data
 fit_bottle <- bottle_wf %>%
   fit(training_set)
@@ -164,7 +164,7 @@ bottle_metrics
 
 Here we are predicting the final values for dissolved inorganic carbon and binding them to the ID's of each measuring station. Our professor provided us the actual values for dissolved inorganic carbon on Kaggle to culminate the competition.
 
-```{r}
+```{r, warning = FALSE}
 ## Outputting predictions for our testing data
 test_data_predictions <- fit_bottle %>% 
   predict(testing_data) %>%

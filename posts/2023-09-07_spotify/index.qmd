@@ -534,4 +534,4 @@ ggplot(data = model_accuracy, aes(x = model,
        y = "Accuracy")
 ```
 
-**This analysis suggests that the Random Forest model has the best accuracy at 69.2% and the worst model is the Decision Tree model with 64.8% accuracy.**
+This analysis suggests that the Random Forest model has the best accuracy at 69.2% and the worst model is the Decision Tree model with 64.8% accuracy.

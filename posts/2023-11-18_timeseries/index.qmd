@@ -1,5 +1,5 @@
 ---
-title: "Lung disease in the United Kingdom"
+title: "Lung Disease in the United Kingdom"
 description: Using a time series analysis to decompose lung diseas in the UK
 editor: visual
 author:
@@ -26,7 +26,7 @@ I am interested in the number of deaths from lung diseases in the UK over time, 
 
 I will be using the `mdeaths` dataset that is included in `R`. This contains a time series of monthly deaths from bronchitis, emphysema and asthma in the UK between 1974 and 1979 for males.
 
-```{r, echo = FALSE, message = FALSE}
+```{r, message = FALSE, warning = FALSE}
 # Load all the packages needed here
 library(tidyverse)
 library(readr)
@@ -38,7 +38,7 @@ library(tsibble)
 library(lubridate)
 ```
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 #load in mdeaths (is already a ts obj)
 mdeaths_data <- mdeaths 
 
