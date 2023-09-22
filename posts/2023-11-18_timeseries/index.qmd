@@ -1,0 +1,80 @@
+---
+title: "Lung disease in the United Kingdom"
+description: Using a time series analysis to decompose lung diseas in the UK
+editor: visual
+author:
+  - name: Kiran Favre
+    url: https://kiranfavre.github.io
+    affiliation: Master of Environmental Data Science
+    affiliation-url: https://ucsb-meds.github.io/
+date: 11-18-2022
+citation: 
+  url: https://kiranfavre.github.io/posts/2023-11-18_timeseries/ 
+categories: [Statistics, Time Series, R]
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+image: IMG_7284.jpg
+---
+
+## Introduction
+
+I am interested in the number of deaths from lung diseases in the UK over time, considering that it's likely that lung disease deaths have declined over time, as smoking has declined in prevalence and medical treatments for lung disease have improved. However, we also know that there is likely to be seasonality in these deaths, because respiratory diseases tend to be exacerbated by climatic conditions. I want to pull apart this seasonal signal from the longer run trend.
+
+## Data
+
+I will be using the `mdeaths` dataset that is included in `R`. This contains a time series of monthly deaths from bronchitis, emphysema and asthma in the UK between 1974 and 1979 for males.
+
+```{r, echo = FALSE}
+# Load all the packages needed here
+library(tidyverse)
+library(readr)
+library(gt)
+library(tufte)
+library(feasts)
+library(knitr)
+library(tsibble)
+library(lubridate)
+```
+
+```{r}
+#load in mdeaths (is already a ts obj)
+mdeaths_data <- mdeaths 
+
+#convert ts to tsibble to make this easier to work with
+mdeaths_tsibble <- as_tsibble(mdeaths_data,
+                              index = yearmonth)  
+```
+
+## Time Series Analysis
+
+### Simple Time Series Plot
+
+```{r}
+#simple time series
+plot(mdeaths_data,
+     main = "Time Series Analysis of Male Deaths by Lung Disease in the UK",
+     col = "blue",
+     xlab = "Year",
+     ylab = "Number of Male Deaths")
+#mdeaths_tsibble
+```
+
+### Classical Decomposition
+
+To recover seasonality separately from the long run trend, I will use a classical decomposition. This will allow me to break total deaths $D_t$ into a trend component $T_t$, a seasonal component $S_t$, and a random component $R_t$. I will make the assumption that an additive model describes our data, as I don't see evidence in the above plot that the magnitude of seasonality is changing over time:
+
+$$D_t = S_t + T_t + R_t$$ To understand this decomposition, I'll make a plot which shows the time series in the raw data, the long run trend, the seasonal component, and the remainder random component.
+
+```{r}
+mdeaths_tsibble |> 
+  model(classical_decomposition(value, type = "additive")) |>
+  components() |> 
+  autoplot() +
+  labs(title =  "Time Series Analysis of Male Deaths by Lung Disease in the UK")
+```
+
+The grey bars on the side of the decomposition plot are there to help assess how "big" each component is. Since the\* y\*-axes vary across each plot, it's hard to compare the magnitude of a trend or a seasonal cycle across plots without these grey bars. All grey bars are of the same magnitude; here, about 250. So, when the bar is small relative to the variation shown in a plot, that means that component is quantitatively important in determining overall variation.
+
+There is evidence for a long-run downward trend over time, but it is not greatly contributing to the overall variation in the value. There is evidence of seasonality, exhibited by the cyclical nature of the curve in the seasonality section. The seasonal component is more important in driving overall variation in male lung disease deaths.
