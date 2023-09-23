@@ -1,0 +1,206 @@
+---
+title: "Predicting the Age of Abalone with Regularized Regression Models"
+description: Comparing Ridge vs Lasso Regression to Estimate the Age of Abalone
+editor: visual
+author:
+  - name: Kiran Favre
+    url: https://kiranfavre.github.io
+    affiliation: Master of Environmental Data Science
+    affiliation-url: https://ucsb-meds.github.io/
+date: 09-25-2023
+citation: 
+  url: https://kiranfavre.github.io/posts/2023-09-25_abaloneageML/ 
+categories: [Machine Learning, R, Regularized Regression]
+format:
+  html:
+    code-fold: false
+    code-summary: "Show code"
+image: pic.JPG
+---
+
+## Introduction
+
+Abalones are marine snails that are consumed by many cultures. Determining the age of abalone can be a time-consuming task, so rather than cutting the shell through the cone, staining it, and counting the number of rings through a microscope, other, easier to obtain, measurements can be used to predict the age of an abalone.
+
+In this blog, I will be using regularized regression machine learning models made using R to predict the age of abalone based on a dataset with variables related to the sex, physical dimensions of the shell, and various weight measurements, along with the number of rings in the shell.
+
+## Regularized Regression Models
+
+Regularization of regression models helps prevent overfitting of data onto the model, therefore reducing the variance of the model predictions. Regularization means having the model self-regulate to prevent overfitting by making sure its regression coefficients don't get too large.
+
+Regularized regression is an alternative to Ordinary Least Squares (OLS) regression. OLS Regression chooses a line (from the many that can be found) that minimizes the sum of squared errors (SSE).
+
+Regularized regression introduces a penalty term to OLS Regression that constrains the size of coefficients to the point where the coefficient can only increase if there is a comparable decrease in model's function. Introducing this penalty is intended to improve the model's predictive performance.
+
+I will be evaluating two types of regularized regression in this blog, *ridge regression* and *lasso regression*. 
+
+
+## Data Exploration
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(rsample)
+library(glmnet)
+library(skimr)
+library(here)
+```
+
+```{r, message = FALSE, warning = FALSE}
+abalone_data <- read_csv(here("posts/2023-09-20-abalone_age_ML/abalone-data.csv"))
+```
+
+## Data Splitting
+
+I'll start with splitting the data into a 70/30 training/test split.
+
+I'll be using the `caret` package in our approach to this task, as it supports the cration of predictive models. I will use the `glmnet` package in order to perform ridge regression and the lasso. The main function in this package is glmnet(), which can be used to fit ridge regression models, lasso models, and more. In particular, we must pass in an x matrix of predictors as well as a y outcome vector , and we do not use the y∼x syntax.
+
+```{r}
+#setting seed for reproducibility
+set.seed(711)
+
+# take a stratified sample
+abalone_data_split <- initial_split(data = abalone_data,
+                       prop = .70,
+                       strata = Rings) #stratify by outcome variable
+
+abalone_data_split
+abalone_data_train <-  training(abalone_data_split) #takes training portion from split data
+abalone_data_test  <-  testing(abalone_data_split) #takes test portion from split data 
+#essentially have two new data sets
+```
+
+
+```{r}
+abalone_data_train
+skim(abalone_data_train) #takes a summary of this data
+```
+
+## Fit a Regularized Regression Model
+
+**Ridge regression models**:
+
+-   Pushes many correlated features toward each other, don't have one wildly positive, another wildly negative
+
+-   Does not perform feature selection and retains all available features in final model
+
+-   Tuning parameter is lambda:
+
+    -   Lambda = 0, no effect & objective function of simply minimizing SSE
+    -   As lambda increase to infinity, penalty becomes large and forces coefficients toward zero (not all the way)
+
+**Lasso regression models**:
+
+-   Will push coefficients all the way to zero
+
+-   Improved model and conducts automated feature selection
+
+-   Least absolute shrinkage and selection operator
+
+I'll be using the `model.matrix()` function to create a predictor matrix, x, and assign the Rings variable to an outcome vector, y.
+
+```{r}
+pred_x <- model.matrix(Rings ~ ., #sale price predicted by all predictors
+                  abalone_data_train)[,-1] #take out first column
+
+
+# transform y with log() transformation
+out_y <- log(abalone_data_train$Rings)
+```
+
+Fitting a ridge model (controlled by the alpha parameter) using the `glmnet()` function, and making a plot showing how the estimated coefficients change with lambda. Lambda is a tuning parameter that helps keep this model from over-fitting to the training data. Lamda is the tuning parameter for both lasso and ridge regression.
+
+```{r}
+#fit a ridge model
+ridge <- glmnet(x = pred_x,
+                y = out_y,
+                alpha = 0)
+
+#plot() the glmnet model object
+plot(ridge, xvar = "lambda")
+```
+
+## Using *k*-fold Cross Validation Resampling and Tuning Models
+
+A methods of estimating a model's generalization error is *k*-fold cross validation. Tuning is the process of finding the optimal value of lambda.
+
+I will fit a ridge regression model and a lasso model, both with using cross validation to compare which model is a better predictor. The `glmnet` package provides a `cv.glmnet()` function to do this (similar to the glmnet() function that we just used). Use the alpha argument to control which type of model you are running. Plot the results.
+
+```{r}
+# apply CV ridge regression 
+ridge_reg <- cv.glmnet(
+  x = pred_x,
+  y = out_y,
+  alpha = 0 #pure ridge is alpha = 0
+)
+
+# apply CV lasso regression 
+lasso_reg <- cv.glmnet(
+  x = pred_x,
+  y = out_y,
+  alpha = 1  #pure lasso is lasso = 0
+)
+
+# plot results
+par(mfrow = c(1, 2))
+plot(ridge_reg, main = "Ridge penalty\n\n")
+# first line is minimum lambda
+#second line is 1 sd away
+
+plot(lasso_reg, main = "Lasso penalty\n\n")
+```
+
+The subtitles/upper x axis indicate the number of features in the model, the lower x axis is showing the value of the penalty of log(lamda), and the y axis is showing the 10 fold CV mean squared error between the predicted outcome variable and the predictor variable with the corresponding penalty log(lambda). The left dotted lines in each plot are the values of the penalty log(lambda) that produces the minimum, mean cross-validated errors. The right dotted lines in each plot indicate the values of the penalty log(lambda) that provide the most regularized model where the cross-validated error is within one standard error of the minimum MSE. The red dots make up the cross validation curve, with the error bars indicating the upper and lower standard deviations. With both ridge and lasso regression, the MSE increases as the penalty increases. Therefore, the performance of the models gets worse as the value of lambda increases.
+
+Inspecting the ridge model object created with cv.glmnet(), I want to know the minimum mean squared error (MSE) and the value of lambda associated with this minimum MSE. MSE measures the amount of error in a model.
+
+```{r}
+#inspect ridge model
+head(ridge_reg)
+
+#find minimum MSE
+min(ridge_reg$cvm)
+
+#find value of lambda at this minimum val
+ridge_reg$lambda.min
+
+```
+
+The minimum MSE of the cross validation folds is **0.0427**. The corresponding lambda value with this MSE minimum is **0.0215**.
+
+I'll do the same for the lasso model.
+
+```{r}
+#inspect ridge model
+head(lasso_reg)
+
+#find minimum MSE
+min(lasso_reg$cvm)
+
+#find corresponding lambda value
+lasso_reg$lambda.min  
+
+```
+
+The minimum MSE of the cross validation folds is **0.0409**. The corresponding lambda value is **8.676e-5**.
+
+I will refer to the "one-standard-error" rule when tuning lambda to select the best model. This rule tells us to pick the most parsimonious model (fewest number of predictors) while still remaining within one standard error of the overall minimum cross validation error. The `cv.glmnet()` model object has a column that automatically finds the value of lambda associated with the model that produces an MSE that is one standard error from the MSE minimum (\$lambda.1se).
+
+Now I'll find the number of predictors associated with this model
+
+```{r}
+#number of predictors associated with ridge regression model 
+ridge_reg$nzero
+
+#number of predictors in lasso model
+lasso_reg$nzero
+
+```
+
+There are 10 predictors associated with the ridge regression model. The number of predictors in the lasso regression model decreases from 10 to 0 as the penalty, log(lamda), increases.
+
+## Regularized Regression Comparison
+
+The lasso regression model worked better for this task. It predicts a very similar mean squared error at higher values, and has a lower overall MSE as the penalty increases at lower values. The lasso regression model also estimates fewer predictors within one standard error of the overall minimum cross validation error. This means that less predictors are used for achieving a similar predictions in the lasso regression model.
+
+
