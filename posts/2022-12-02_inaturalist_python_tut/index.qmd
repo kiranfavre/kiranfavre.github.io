@@ -1,0 +1,28 @@
+---
+title: "Accessing iNaturalist Data Using Python & Global Biodiversity Information Facility Data"
+description: A tutuorial for using data from the Global Biodiversity Information Facilitiy (GBIF).
+
+editor: visual
+author:
+  - name: Kiran Favre
+    url: https://kiranfavre.github.io
+    affiliation: Master of Environmental Data Science
+    affiliation-url: https://ucsb-meds.github.io/
+date: 12-02-2022
+citation: 
+  url: https://kiranfavre.github.io/posts/2022-12-02-python-inaturalist/ 
+categories: [Python, API]
+format:
+  html:
+    code-fold: false
+    code-summary: "Show code"
+image: pic.JPG
+---
+
+
+This repository is for our tutorial for using data from the [Global Biodiversity Information Facilitiy (GBIF)](https://www.gbif.org/). In collaboration with classmates Jillian Allison and Erica Bishop, we will be using an occurrence dataset about [iNaturalist Research Grade Observations](https://www.gbif.org/dataset/50c9509d-22c7-4a22-a47d-8c48425ef4a7). This blog will include an installation guide to get started using GBIF.
+
+This repository includes a Jupyter Notebook with the tutorial for EDS 220 Working With Environmental Data at UC Santa Barbara (Fall 2021 quarter).
+
+
+

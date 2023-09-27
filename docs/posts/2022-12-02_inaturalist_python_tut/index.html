@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Kiran Favre">
+<meta name="dcterms.date" content="2022-12-02">
+<meta name="description" content="A tutuorial for using data from the Global Biodiversity Information Facilitiy (GBIF).">
 
-<title>Kiran Favre - About</title>
+<title>Kiran Favre - Accessing iNaturalist Data Using Python &amp; Global Biodiversity Information Facility Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./favicon.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -59,20 +62,9 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
-<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
-<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
-<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="site_libs/leaflet-binding-2.1.2/leaflet.js"></script>
-<script src="site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="site_libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -82,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kiran Favre</span>
     </a>
   </div>
@@ -93,19 +85,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html" rel="" target="">
+    <a class="nav-link" href="../../posts.html" rel="" target="">
  <span class="menu-text">Portfolio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.pdf" rel="" target="">
+    <a class="nav-link" href="../../resume.pdf" rel="" target="">
  <span class="menu-text">Resume</span></a>
   </li>  
 </ul>
@@ -116,67 +108,82 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Accessing iNaturalist Data Using Python &amp; Global Biodiversity Information Facility Data</h1>
+                  <div>
+        <div class="description">
+          A tutuorial for using data from the Global Biodiversity Information Facilitiy (GBIF).
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">API</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author"><a href="https://kiranfavre.github.io">Kiran Favre</a> </p>
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              <a href="https://ucsb-meds.github.io/">
+              Master of Environmental Data Science
+              </a>
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 2, 2022</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">About</h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">About</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Hobbies</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Travel</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<h4 class="anchored">
-More about me!
-</h4>
-<p>I recently earned a Master of Environmental Data Science degree from the Bren School of Environmental Science &amp; Management at the University of California, Santa Barbara. I built two interactive web applications for a client with a team of three other graduate students. These applications were developed in response to our client’s needs of improving their data management system and creating a way to visualize the data they collected. Their work directly impacts Marine Protected Areas by identifiying gaps in enforcement of these regions, collecting data on categories related to enforcement, and working with partners to improve the protection of these habitats. Our applications allowed them to reduce errors in data compilation, save time by giving them an automated data entry system, and a tool to visualize trends in their data. In addition to this capstone project, I learned about geospatial analysis, data management, and open data science through coursework and connections at the Bren School and the National Center for Ecological Analysis and Synthesis.</p>
-<p>I graduated from the University of California, Santa Cruz in 2022 with a Bachelor’s degree in Environmental Sciences, where I focused on climate change and oceanography. While there, I was a Santa Cruz Climate Action Program Intern who collected data on potential community responses to coastal erosion. Surveying and collecting data as an intern, doing field work through courses at UCSC, and working with climate models in my undergraduate capstone project inspired my curiosity for data as a tool of scientific communication. Interest in undergraduate environmental data analysis and climate modeling drove me to seek out the Bren School for Environmental Science &amp; Management to deepen my understanding of data driven solutions to environmental problems. I hopes to use my degree to contribute to sustainable technology and to pursue a career in data science.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<ul>
-<li><p>Spending time by the ocean</p></li>
-<li><p>Hiking and camping with my pups</p></li>
-<li><p>Music (going to concerts or playing it!)</p></li>
-<li><p>Scuba diving</p></li>
-<li><p>Exploring new restaurants</p></li>
-</ul>
-<p><img src="images/IMG_0653.jpg" class="img-fluid" width="224"><img src="images/IMG_5398.jpg" class="img-fluid" width="224"></p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>I love to travel, and have been fortunate to have had the opportunity to. I look forward to travelling more in my life since my travels so far have given me the chance to learn more about different perspectives and cultures. Here where I’ve been so far!</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e44fd70375f333a50146" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-e44fd70375f333a50146">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldPhysical",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Stamen.TonerLabels",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[[19.076,30.7333,15.2993,26.9124,26.2389,28.6139,8.8932,8.5241,17.385,31.634,27.1767,30.9013,24.8829,33.4484,35.1983,32.254,34.8697,32.7157,34.0522,37.7749,37.3387,36.9741,34.4208,36.2704,47.6062,34.1083,39.1677,34.0095,36.6002,36.5552,37.8044,44.0521,45.5152,48.1181,33.3879,34.2164,40.7608,39.7392,20.0204,21.3099,29.7604,30.2672,28.5384,38.9072,39.9526,40.7128,36.1716,39.5299,38.3498,49.2827,46.8131,45.5019,41.9029,51.2538,43.6532,-33.8688,-37.8136,-35.2802,-36.499,-16.9203,3.139,35.6762,35.2221,-8.6705,48.8566,39.9042,31.2304,31.2983,30.2741,48.1351,51.5072,45.4408,45.4384,45.4642,59.9139,60.3913,25.033,34.0922,33.8366,34.3989,38.1924,35.5641,45.9932,46.1879,20.6534,20.8689,20.7984],[72.8777,76.7794,74.124,75.7873,73.0243,77.209,76.6141,76.9366,78.4867,74.8723,78.0081,76.9649,74.623,-112.074,-111.6513,-110.9742,-111.761,-117.1611,-118.2437,-122.4194,-121.8853,-122.0308,-119.6982,-121.8081,-122.3321,-117.2898,-120.1452,-109.4585,-121.8947,-121.9233,-122.2712,-123.0868,-122.6784,-123.4307,-118.4163,-119.0376,-111.891,-104.9903,-155.6689,-157.8581,-95.3698,-97.7431,-81.3789,-77.0369,-75.1652,-74.006,-115.1391,-119.8143,-81.6326,-123.1207,-71.2075,-73.5674,12.4534,-85.3232,-79.3832,151.2092,144.9631,149.131,148.3119,145.771,101.6841,139.6503,138.6216,115.2126,2.3522,116.4074,121.4737,120.5832,120.1552,11.582,-0.1276,12.3155,10.9916,9.19,10.7522,5.3221,121.5654,-117.435,-117.9143,-119.5185,-119.9946,-121.0807,-123.9226,-123.8313,-105.2253,-105.4408,-156.3319],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Mumbai","Chandigarh","Goa","Jaipur","Jodhpur","New Delhi","Kollam","Thiruvananthaparum","Hyderabad","Amritsar","Agra","Kasauli","Chittargarh","Phoenix","Flagstaff","Tuscon","Sedona","San Diego","Los Angeles","San Francisco","San Jose","Santa Cruz","Santa Barbara","Big Sur","Seattle","San Bernadino","Tahoe City","Greer","Monterey","Carmel","Oakland","Eugene","Portland","Port Angeles","Santa Catalina Island","Camarillo","Salt Lake City","Denver","Waimea","Honolulu","Houston","Austin","Orlando","Washington D.C.","Philadelphia","New York City","Las Vegas","Reno","Charleston","Vancouver","Quebec","Montreal","Vatican City","Ontario","Toronto","Sydney","Melbourne","Canberra","Thredbo","Cairns","Kuala Lumpur","Tokyo","Fujinomiya","Denpasar","Paris","Beijing","Shanghai","Suzhou","Hangzhou","Munich","London","Venice","Verona","Milan","Oslo","Bergen","Taipei City","Fontana","Anaheim","Carpinteria","Pinecrest","Cambria","Seaside","Astoria","Puerto Vallarta","Sayulita","Maui"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-37.8136,60.3913],"lng":[-157.8581,151.2092]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-</div>
-</div>
-</div>
+<p>This repository is for our tutorial for using data from the <a href="https://www.gbif.org/">Global Biodiversity Information Facilitiy (GBIF)</a>. In collaboration with classmates Jillian Allison and Erica Bishop, we will be using an occurrence dataset about <a href="https://www.gbif.org/dataset/50c9509d-22c7-4a22-a47d-8c48425ef4a7">iNaturalist Research Grade Observations</a>. This blog will include an installation guide to get started using GBIF.</p>
+<p>This repository includes a Jupyter Notebook with the tutorial for EDS 220 Working With Environmental Data at UC Santa Barbara (Fall 2021 quarter).</p>
 
 
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{favre2022,
+  author = {Favre, Kiran},
+  title = {Accessing {iNaturalist} {Data} {Using} {Python} \&amp; {Global}
+    {Biodiversity} {Information} {Facility} {Data}},
+  date = {2022-12-02},
+  url = {https://kiranfavre.github.io/posts/2022-12-02-python-inaturalist/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-favre2022" class="csl-entry quarto-appendix-citeas" role="listitem">
+Favre, Kiran. 2022. <span>“Accessing iNaturalist Data Using Python &amp;
+Global Biodiversity Information Facility Data.”</span> December 2, 2022.
+<a href="https://kiranfavre.github.io/posts/2022-12-02-python-inaturalist/">https://kiranfavre.github.io/posts/2022-12-02-python-inaturalist/</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

@@ -1,6 +1,6 @@
 ---
 title: "Lung Disease in the United Kingdom"
-description: Using a time series analysis to decompose lung diseas in the UK
+description: Using a time series analysis to decompose lung disease in the UK
 editor: visual
 author:
   - name: Kiran Favre
