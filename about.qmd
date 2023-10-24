@@ -50,7 +50,7 @@ cities <- cities %>%
 cities %>% 
   leaflet() %>% 
   addProviderTiles(providers$Esri.WorldPhysical) %>% 
-  addProviderTiles(providers$Stamen.TonerLabels) %>% 
+  addProviderTiles(providers$OpenStreetMap.Mapnik) %>% 
   addMarkers(label = cities$city)
 
 
